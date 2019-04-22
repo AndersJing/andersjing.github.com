@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  <title>Mac zsh 安装简介 | Anders Jing&#39;s site</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="AndersJing, AndersJing's Site">
+  
+  <meta name="description" content="前言Mac 下默认的终端界面比较简单，并且不支持自动补全功能，用起来不太方便。可以安装 zsh 取代原有的终端界面，获得丰富的显示效果和功能。 本文提供一个基本的安装和主题配置简介，更进一步的配置请参考其他相关文章。 安装 Oh My Zsh在默认终端中使用如下命令来安装： 1curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/">
+<meta name="keywords" content="mac,oh my zsh">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mac zsh 安装简介">
+<meta property="og:url" content="http://andersjing.com/2018/07/27/mac-zsh/index.html">
+<meta property="og:site_name" content="Anders Jing&#39;s site">
+<meta property="og:description" content="前言Mac 下默认的终端界面比较简单，并且不支持自动补全功能，用起来不太方便。可以安装 zsh 取代原有的终端界面，获得丰富的显示效果和功能。 本文提供一个基本的安装和主题配置简介，更进一步的配置请参考其他相关文章。 安装 Oh My Zsh在默认终端中使用如下命令来安装： 1curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-04-20T02:37:02.908Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Mac zsh 安装简介">
+<meta name="twitter:description" content="前言Mac 下默认的终端界面比较简单，并且不支持自动补全功能，用起来不太方便。可以安装 zsh 取代原有的终端界面，获得丰富的显示效果和功能。 本文提供一个基本的安装和主题配置简介，更进一步的配置请参考其他相关文章。 安装 Oh My Zsh在默认终端中使用如下命令来安装： 1curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+  
+  
+
+</head>
+</html>
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">AndersJing&#39;s Site</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        AndersJing&#39;s Site
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        AndersJing 的个人站点
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="AndersJing" target="_blank" href="//AndersJing.com">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com/AndersJing">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-mac-zsh" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      Mac zsh 安装简介
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/uncategorized/">uncategorized</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2018-07-27
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>Mac 下默认的终端界面比较简单，并且不支持自动补全功能，用起来不太方便。可以安装 zsh 取代原有的终端界面，获得丰富的显示效果和功能。</p>
+<p>本文提供一个基本的安装和主题配置简介，更进一步的配置请参考其他相关文章。</p>
+<h3 id="安装-Oh-My-Zsh"><a href="#安装-Oh-My-Zsh" class="headerlink" title="安装 Oh My Zsh"></a>安装 Oh My Zsh</h3><p>在默认终端中使用如下命令来安装：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh</span><br></pre></td></tr></table></figure>
+<h3 id="配置-Oh-My-Zsh-主题"><a href="#配置-Oh-My-Zsh-主题" class="headerlink" title="配置 Oh My Zsh 主题"></a>配置 Oh My Zsh 主题</h3><p>Oh My Zsh 的配置文件为 <code>~/.zshrc</code>，主题列表在：<a href="https://github.com/robbyrussell/oh-my-zsh/wiki/Themes" target="_blank" rel="noopener">https://github.com/robbyrussell/oh-my-zsh/wiki/Themes</a></p>
+<p>打开<code>~/.zshrc</code>文件：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi ~/.zshrc</span><br></pre></td></tr></table></figure></p>
+<p>找到<code>ZSH_THEME</code>所在行，将主题设置为自己喜欢的主题。</p>
+<p>重启终端，即可看到新的效果。</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ol>
+<li>Mac OSX终端安装主题(oh my zsh)：<a href="https://blog.csdn.net/u013310075/article/details/62585826" target="_blank" rel="noopener">https://blog.csdn.net/u013310075/article/details/62585826</a></li>
+<li>oh my zsh Themes：<a href="https://github.com/robbyrussell/oh-my-zsh/wiki/Themes" target="_blank" rel="noopener">https://github.com/robbyrussell/oh-my-zsh/wiki/Themes</a></li>
+</ol>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2019年04月19日 21:37</p>
+        <p>原始链接： <a class="post-url" href="/2018/07/27/mac-zsh/" title="Mac zsh 安装简介">http://andersjing.com/2018/07/27/mac-zsh/</a></p>
+        <footer>
+            <a href="http://andersjing.com">
+                <img src="/images/logo.png" alt="Anders Jing">
+                Anders Jing
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+        
+            
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;">赏</a>
+</div>
+
+<div id="reward" class="post-modal reward-lay">
+    <a class="close" href="javascript:;" id="reward-close">×</a>
+    <span class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        请打赏~
+        <i class="icon icon-quote-right"></i>
+    </span>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/images/wechat_code.jpg" alt="打赏二维码">
+        </div>
+        <div class="reward-select">
+            
+            <label class="reward-select-item checked" data-id="wechat" data-wechat="/images/wechat_code.jpg">
+                <img class="reward-select-item-wechat" src="/images/wechat.png" alt="微信">
+            </label>
+            
+            
+        </div>
+    </div>
+</div>
+
+
+        
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://andersjing.com/2018/07/27/mac-zsh/&title=《Mac zsh 安装简介》 — Anders Jing's site&pic=/images/banner.jpg" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://andersjing.com/2018/07/27/mac-zsh/&title=《Mac zsh 安装简介》 — Anders Jing's site&source=this is the site of AndersJing." data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://andersjing.com/2018/07/27/mac-zsh/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Mac zsh 安装简介》 — Anders Jing's site&url=http://andersjing.com/2018/07/27/mac-zsh/&via=http://andersjing.com" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://andersjing.com/2018/07/27/mac-zsh/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://andersjing.com/2018/07/27/mac-zsh/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/mac/" class="color4">mac</a>
+      
+    <a href="/tags/ohmyzsh/" class="color5">oh my zsh</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#前言"><span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装-Oh-My-Zsh"><span class="post-toc-text">安装 Oh My Zsh</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#配置-Oh-My-Zsh-主题"><span class="post-toc-text">配置 Oh My Zsh 主题</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#参考"><span class="post-toc-text">参考</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/2018/07/28/linux-common-commands-tools/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          Linux 常用工具和命令总结
+        
+      </span>
+    </a>
+  
+  
+    <a href="/2018/07/26/ssh-nopass-login/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">Linux 主机之间 ssh 免密码登录</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2019 Anders Jing<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "http://andersjing.com",
+      animate: false,
+      isHome: false,
+      share: true,
+      reward: 1
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Bioinformatics/">Bioinformatics</a><a class="category-link" href="/categories/Linux/">Linux</a><a class="category-link" href="/categories/Machine-Learning/">Machine Learning</a><a class="category-link" href="/categories/Python/">Python</a><a class="category-link" href="/categories/QT/">QT</a><a class="category-link" href="/categories/deep-learning/">deep learning</a><a class="category-link" href="/categories/hexo/">hexo</a><a class="category-link" href="/categories/linux/">linux</a><a class="category-link" href="/categories/uncategorized/">uncategorized</a><a class="category-link" href="/categories/前端/">前端</a><a class="category-link" href="/categories/读书笔记/">读书笔记</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/Anaconda/" style="font-size: 10px;">Anaconda</a> <a href="/tags/Angular/" style="font-size: 10px;">Angular</a> <a href="/tags/Blast/" style="font-size: 10px;">Blast</a> <a href="/tags/CentOS/" style="font-size: 10px;">CentOS</a> <a href="/tags/GPU/" style="font-size: 10px;">GPU</a> <a href="/tags/HMM/" style="font-size: 10px;">HMM</a> <a href="/tags/Hexo/" style="font-size: 14px;">Hexo</a> <a href="/tags/Machine-Learning/" style="font-size: 10px;">Machine Learning</a> <a href="/tags/Needleman-Wunsch/" style="font-size: 10px;">Needleman-Wunsch</a> <a href="/tags/PSI-Blast/" style="font-size: 10px;">PSI-Blast</a> <a href="/tags/PSSM/" style="font-size: 10px;">PSSM</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/Rank/" style="font-size: 10px;">Rank</a> <a href="/tags/Smith-Waterman/" style="font-size: 10px;">Smith-Waterman</a> <a href="/tags/Theano/" style="font-size: 10px;">Theano</a> <a href="/tags/centos/" style="font-size: 16px;">centos</a> <a href="/tags/cuda/" style="font-size: 10px;">cuda</a> <a href="/tags/disk/" style="font-size: 10px;">disk</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/glibc/" style="font-size: 10px;">glibc</a> <a href="/tags/libstdc/" style="font-size: 10px;">libstdc</a> <a href="/tags/linux/" style="font-size: 18px;">linux</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/math/" style="font-size: 10px;">math</a> <a href="/tags/oh-my-zsh/" style="font-size: 10px;">oh my zsh</a> <a href="/tags/python/" style="font-size: 14px;">python</a> <a href="/tags/qml/" style="font-size: 10px;">qml</a> <a href="/tags/qt/" style="font-size: 10px;">qt</a> <a href="/tags/scipy/" style="font-size: 10px;">scipy</a> <a href="/tags/scrapy/" style="font-size: 10px;">scrapy</a> <a href="/tags/screen/" style="font-size: 10px;">screen</a> <a href="/tags/sklearn/" style="font-size: 10px;">sklearn</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/tar/" style="font-size: 10px;">tar</a> <a href="/tags/tensorflow/" style="font-size: 12px;">tensorflow</a> <a href="/tags/web开发/" style="font-size: 10px;">web开发</a> <a href="/tags/wget/" style="font-size: 10px;">wget</a> <a href="/tags/yum/" style="font-size: 10px;">yum</a> <a href="/tags/读书笔记/" style="font-size: 20px;">读书笔记</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/Anaconda/" style="font-size: 10px;">Anaconda</a> <a href="/tags/Angular/" style="font-size: 10px;">Angular</a> <a href="/tags/Blast/" style="font-size: 10px;">Blast</a> <a href="/tags/CentOS/" style="font-size: 10px;">CentOS</a> <a href="/tags/GPU/" style="font-size: 10px;">GPU</a> <a href="/tags/HMM/" style="font-size: 10px;">HMM</a> <a href="/tags/Hexo/" style="font-size: 14px;">Hexo</a> <a href="/tags/Machine-Learning/" style="font-size: 10px;">Machine Learning</a> <a href="/tags/Needleman-Wunsch/" style="font-size: 10px;">Needleman-Wunsch</a> <a href="/tags/PSI-Blast/" style="font-size: 10px;">PSI-Blast</a> <a href="/tags/PSSM/" style="font-size: 10px;">PSSM</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/Rank/" style="font-size: 10px;">Rank</a> <a href="/tags/Smith-Waterman/" style="font-size: 10px;">Smith-Waterman</a> <a href="/tags/Theano/" style="font-size: 10px;">Theano</a> <a href="/tags/centos/" style="font-size: 16px;">centos</a> <a href="/tags/cuda/" style="font-size: 10px;">cuda</a> <a href="/tags/disk/" style="font-size: 10px;">disk</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/glibc/" style="font-size: 10px;">glibc</a> <a href="/tags/libstdc/" style="font-size: 10px;">libstdc</a> <a href="/tags/linux/" style="font-size: 18px;">linux</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/math/" style="font-size: 10px;">math</a> <a href="/tags/oh-my-zsh/" style="font-size: 10px;">oh my zsh</a> <a href="/tags/python/" style="font-size: 14px;">python</a> <a href="/tags/qml/" style="font-size: 10px;">qml</a> <a href="/tags/qt/" style="font-size: 10px;">qt</a> <a href="/tags/scipy/" style="font-size: 10px;">scipy</a> <a href="/tags/scrapy/" style="font-size: 10px;">scrapy</a> <a href="/tags/screen/" style="font-size: 10px;">screen</a> <a href="/tags/sklearn/" style="font-size: 10px;">sklearn</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/tar/" style="font-size: 10px;">tar</a> <a href="/tags/tensorflow/" style="font-size: 12px;">tensorflow</a> <a href="/tags/web开发/" style="font-size: 10px;">web开发</a> <a href="/tags/wget/" style="font-size: 10px;">wget</a> <a href="/tags/yum/" style="font-size: 10px;">yum</a> <a href="/tags/读书笔记/" style="font-size: 20px;">读书笔记</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+
+
+
+  <script src="/js/pop-img.js"></script>
+  <script>
+     $(".article-entry p img").popImg();
+  </script>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>

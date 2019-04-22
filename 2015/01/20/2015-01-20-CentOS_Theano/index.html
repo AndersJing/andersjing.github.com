@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  <title>CentOS 6.5安装Theano问题解决方案 | Anders Jing&#39;s site</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="AndersJing, AndersJing's Site">
+  
+  <meta name="description" content="最近要在系统上跑GSN（Yoshua Bengio, Li Yao, Guillaume Alain, Pascal Vincent. Generalized Denoising Auto-Encoders as Generative Models. NIPS, 2013. (PDF, BibTeX)）的代码，配置运行环境的过程中要在Python中安装Theano模块，中间遇到了很多问题，最后终于">
+<meta name="keywords" content="Theano,centos">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CentOS 6.5安装Theano问题解决方案">
+<meta property="og:url" content="http://andersjing.com/2015/01/20/2015-01-20-CentOS_Theano/index.html">
+<meta property="og:site_name" content="Anders Jing&#39;s site">
+<meta property="og:description" content="最近要在系统上跑GSN（Yoshua Bengio, Li Yao, Guillaume Alain, Pascal Vincent. Generalized Denoising Auto-Encoders as Generative Models. NIPS, 2013. (PDF, BibTeX)）的代码，配置运行环境的过程中要在Python中安装Theano模块，中间遇到了很多问题，最后终于">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-04-20T02:37:02.899Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CentOS 6.5安装Theano问题解决方案">
+<meta name="twitter:description" content="最近要在系统上跑GSN（Yoshua Bengio, Li Yao, Guillaume Alain, Pascal Vincent. Generalized Denoising Auto-Encoders as Generative Models. NIPS, 2013. (PDF, BibTeX)）的代码，配置运行环境的过程中要在Python中安装Theano模块，中间遇到了很多问题，最后终于">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+  
+  
+
+</head>
+</html>
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">AndersJing&#39;s Site</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        AndersJing&#39;s Site
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        AndersJing 的个人站点
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="AndersJing" target="_blank" href="//AndersJing.com">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com/AndersJing">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-2015-01-20-CentOS_Theano" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      CentOS 6.5安装Theano问题解决方案
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/Linux/">Linux</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2015-01-20
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <p>最近要在系统上跑GSN（Yoshua Bengio, Li Yao, Guillaume Alain, Pascal Vincent. Generalized Denoising Auto-Encoders as Generative Models. NIPS, 2013. (PDF, BibTeX)）的代码，配置运行环境的过程中要在Python中安装Theano模块，中间遇到了很多问题，最后终于解决，在此做个记录，给同行做参考。</p>
+<p><strong>1、安装Theano之前，需要安装python-devel、python-nose、python-setuptools等模块，按照官网说明安装即可</strong></p>
+<pre><code>sudo yum install python-devel python-nose python-setuptools gcc gcc-gfortran gcc-c++ blas-devel lapack-devel atlas-devel
+sudo easy_install pip
+sudo pip install numpy==1.6.1
+sudo pip install scipy==0.10.1
+sudo pip install Theano
+</code></pre><p>安装过程中还会遇到一些需要安装的模块，按照错误说明安装即可。</p>
+<p><strong>2、按照官网的说明测试安装好的模块是否正常</strong><br>    NumPy (~30s): python -c “import numpy; numpy.test()”<br>    SciPy (~1m): python -c “import scipy; scipy.test()”<br>    Theano (~30m): python -c “import theano; theano.test()”</p>
+<p>前两个模块一般都没问题，主要是Theano 测试的时候，很容易出现如下两种情况：</p>
+<pre><code>a）error while loading shared libraries: libpython2.7.so.1.0: cannot open shared object file: No such file or directory
+b）ImportError: cannot import name gof
+</code></pre><p>我安装的时候，第一次运行：import theano，出现错误a，再运行一下：import theano，就开始出现错误b，之后不管运行多少次，都是错误b。</p>
+<p>其实本质还在于问题a，解决了问题a，就可以正常引入Theano了。</p>
+<p><strong>3、解决：error while loading shared libraries: libpython2.7.so.1.0: cannot open shared object file: No such file or directory</strong></p>
+<p>这个问题的出现主要是由于在编译Python的时候，没有正确指定共享库位置导致的，网上一般有两种解决办法，当然前提是找到libpython2.7.so.1.0真正所在的位置，不同的系统位置不一样，有的在/usr/local/，有的在/usr/local/lib/，当然运行命令：whereis libpython2.7.so.1.0，即可找到所在文件夹。下面介绍两种解决办法：</p>
+<p><strong><em>一、设定动态链接库的路径：vi /etc/ld.so.conf（需要root权限）</em></strong></p>
+<p>然后把libpython2.7.so.1.0所在路径加入进去，保存后，执行：/sbin/ldconfig -v（需要root权限），使其生效，即可解决问题。<br>我的ld.so.conf原内容为：include ld.so.conf.d/*.conf，我不太清楚如何将路径加入，不管加不加include，保存生效后都没用，我采用的是第二种解决方案。（后来发现可以：echo “/usr/local/lib” &gt;&gt; /etc/ld.so.conf，然后再执行：ldconfig）</p>
+<p><strong><em>二、重新编译python</em></strong></p>
+<p>1、进入python源码目录，删除python源码目录下Object目录下所有的 .o 文件。（此步骤不做应该也行，我最初直接删除了，所以不删除是否可以有待验证）</p>
+<p>2、编译python源码（此处是关键）：./configure –prefix=/usr/local/  –enable-shared CFLAGS=-fPIC<br>prefix为动态链接库的路径，按照系统的实际情况进行修改。另外如果直接粘贴代码不能运行，将上边的命令手动敲进去，就可以了。<br>接着依次运行：make、make install（需要root 权限）如果没有意外，此处会顺利编译完成。</p>
+<p>3、再次import theano，应该会成功引入。问题解决。</p>
+<p>后记：最初就采用的第二种解决方法，但是刚开始没意识到不同系统的libpython2.7.so.1.0所在路径不同，导致重新编译了好几遍都没解决问题。后来正确设置路径之后，问题就解决了。</p>
+<p><em>参考链接：</em></p>
+<p>python安装时 -fPIC问题的解决：<a href="http://taoo.iteye.com/blog/1826912" target="_blank" rel="noopener">http://taoo.iteye.com/blog/1826912</a></p>
+<p>libpython2.7.so.1.0 cannot open的解决方法：<a href="http://www.360doc.com/content/12/0322/18/6938655_196712249.shtml" target="_blank" rel="noopener">http://www.360doc.com/content/12/0322/18/6938655_196712249.shtml</a></p>
+<p>解决error while loading shared libraries: libpython2.7.so.1.0: cannot open shared object file: No su：<a href="http://blog.csdn.net/wanyanxgf/article/details/8021641" target="_blank" rel="noopener">http://blog.csdn.net/wanyanxgf/article/details/8021641</a></p>
+<p>CentOS下编译安装Python2.7.6：<a href="http://blog.useasp.net/archive/2014/05/07/compile-and-install-python-2-dot-7-dot-6-on-centos.aspx" target="_blank" rel="noopener">http://blog.useasp.net/archive/2014/05/07/compile-and-install-python-2-dot-7-dot-6-on-centos.aspx</a></p>
+<p><a href="https://groups.google.com/forum/#!topic/theano-users/idznDsFkvtA" target="_blank" rel="noopener">https://groups.google.com/forum/#!topic/theano-users/idznDsFkvtA</a>
+ </p>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2019年04月19日 21:37</p>
+        <p>原始链接： <a class="post-url" href="/2015/01/20/2015-01-20-CentOS_Theano/" title="CentOS 6.5安装Theano问题解决方案">http://andersjing.com/2015/01/20/2015-01-20-CentOS_Theano/</a></p>
+        <footer>
+            <a href="http://andersjing.com">
+                <img src="/images/logo.png" alt="Anders Jing">
+                Anders Jing
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+        
+            
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;">赏</a>
+</div>
+
+<div id="reward" class="post-modal reward-lay">
+    <a class="close" href="javascript:;" id="reward-close">×</a>
+    <span class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        请打赏~
+        <i class="icon icon-quote-right"></i>
+    </span>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/images/wechat_code.jpg" alt="打赏二维码">
+        </div>
+        <div class="reward-select">
+            
+            <label class="reward-select-item checked" data-id="wechat" data-wechat="/images/wechat_code.jpg">
+                <img class="reward-select-item-wechat" src="/images/wechat.png" alt="微信">
+            </label>
+            
+            
+        </div>
+    </div>
+</div>
+
+
+        
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://andersjing.com/2015/01/20/2015-01-20-CentOS_Theano/&title=《CentOS 6.5安装Theano问题解决方案》 — Anders Jing's site&pic=/images/posts/ubuntu.png" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://andersjing.com/2015/01/20/2015-01-20-CentOS_Theano/&title=《CentOS 6.5安装Theano问题解决方案》 — Anders Jing's site&source=this is the site of AndersJing." data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://andersjing.com/2015/01/20/2015-01-20-CentOS_Theano/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《CentOS 6.5安装Theano问题解决方案》 — Anders Jing's site&url=http://andersjing.com/2015/01/20/2015-01-20-CentOS_Theano/&via=http://andersjing.com" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://andersjing.com/2015/01/20/2015-01-20-CentOS_Theano/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://andersjing.com/2015/01/20/2015-01-20-CentOS_Theano/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/Theano/" class="color2">Theano</a>
+      
+    <a href="/tags/centos/" class="color2">centos</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+
+<nav id="article-nav">
+  
+    <a href="/2015/04/23/2015-04-23-wget/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          WGET命令详解
+        
+      </span>
+    </a>
+  
+  
+    <a href="/2015/01/19/2015-01-19-linux_tar/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">Linux 一次解压多个文件</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2019 Anders Jing<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "http://andersjing.com",
+      animate: false,
+      isHome: false,
+      share: true,
+      reward: 1
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Bioinformatics/">Bioinformatics</a><a class="category-link" href="/categories/Linux/">Linux</a><a class="category-link" href="/categories/Machine-Learning/">Machine Learning</a><a class="category-link" href="/categories/Python/">Python</a><a class="category-link" href="/categories/QT/">QT</a><a class="category-link" href="/categories/deep-learning/">deep learning</a><a class="category-link" href="/categories/hexo/">hexo</a><a class="category-link" href="/categories/linux/">linux</a><a class="category-link" href="/categories/uncategorized/">uncategorized</a><a class="category-link" href="/categories/前端/">前端</a><a class="category-link" href="/categories/读书笔记/">读书笔记</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/Anaconda/" style="font-size: 10px;">Anaconda</a> <a href="/tags/Angular/" style="font-size: 10px;">Angular</a> <a href="/tags/Blast/" style="font-size: 10px;">Blast</a> <a href="/tags/CentOS/" style="font-size: 10px;">CentOS</a> <a href="/tags/GPU/" style="font-size: 10px;">GPU</a> <a href="/tags/HMM/" style="font-size: 10px;">HMM</a> <a href="/tags/Hexo/" style="font-size: 14px;">Hexo</a> <a href="/tags/Machine-Learning/" style="font-size: 10px;">Machine Learning</a> <a href="/tags/Needleman-Wunsch/" style="font-size: 10px;">Needleman-Wunsch</a> <a href="/tags/PSI-Blast/" style="font-size: 10px;">PSI-Blast</a> <a href="/tags/PSSM/" style="font-size: 10px;">PSSM</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/Rank/" style="font-size: 10px;">Rank</a> <a href="/tags/Smith-Waterman/" style="font-size: 10px;">Smith-Waterman</a> <a href="/tags/Theano/" style="font-size: 10px;">Theano</a> <a href="/tags/centos/" style="font-size: 16px;">centos</a> <a href="/tags/cuda/" style="font-size: 10px;">cuda</a> <a href="/tags/disk/" style="font-size: 10px;">disk</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/glibc/" style="font-size: 10px;">glibc</a> <a href="/tags/libstdc/" style="font-size: 10px;">libstdc</a> <a href="/tags/linux/" style="font-size: 18px;">linux</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/math/" style="font-size: 10px;">math</a> <a href="/tags/oh-my-zsh/" style="font-size: 10px;">oh my zsh</a> <a href="/tags/python/" style="font-size: 14px;">python</a> <a href="/tags/qml/" style="font-size: 10px;">qml</a> <a href="/tags/qt/" style="font-size: 10px;">qt</a> <a href="/tags/scipy/" style="font-size: 10px;">scipy</a> <a href="/tags/scrapy/" style="font-size: 10px;">scrapy</a> <a href="/tags/screen/" style="font-size: 10px;">screen</a> <a href="/tags/sklearn/" style="font-size: 10px;">sklearn</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/tar/" style="font-size: 10px;">tar</a> <a href="/tags/tensorflow/" style="font-size: 12px;">tensorflow</a> <a href="/tags/web开发/" style="font-size: 10px;">web开发</a> <a href="/tags/wget/" style="font-size: 10px;">wget</a> <a href="/tags/yum/" style="font-size: 10px;">yum</a> <a href="/tags/读书笔记/" style="font-size: 20px;">读书笔记</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/Anaconda/" style="font-size: 10px;">Anaconda</a> <a href="/tags/Angular/" style="font-size: 10px;">Angular</a> <a href="/tags/Blast/" style="font-size: 10px;">Blast</a> <a href="/tags/CentOS/" style="font-size: 10px;">CentOS</a> <a href="/tags/GPU/" style="font-size: 10px;">GPU</a> <a href="/tags/HMM/" style="font-size: 10px;">HMM</a> <a href="/tags/Hexo/" style="font-size: 14px;">Hexo</a> <a href="/tags/Machine-Learning/" style="font-size: 10px;">Machine Learning</a> <a href="/tags/Needleman-Wunsch/" style="font-size: 10px;">Needleman-Wunsch</a> <a href="/tags/PSI-Blast/" style="font-size: 10px;">PSI-Blast</a> <a href="/tags/PSSM/" style="font-size: 10px;">PSSM</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/Rank/" style="font-size: 10px;">Rank</a> <a href="/tags/Smith-Waterman/" style="font-size: 10px;">Smith-Waterman</a> <a href="/tags/Theano/" style="font-size: 10px;">Theano</a> <a href="/tags/centos/" style="font-size: 16px;">centos</a> <a href="/tags/cuda/" style="font-size: 10px;">cuda</a> <a href="/tags/disk/" style="font-size: 10px;">disk</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/glibc/" style="font-size: 10px;">glibc</a> <a href="/tags/libstdc/" style="font-size: 10px;">libstdc</a> <a href="/tags/linux/" style="font-size: 18px;">linux</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/math/" style="font-size: 10px;">math</a> <a href="/tags/oh-my-zsh/" style="font-size: 10px;">oh my zsh</a> <a href="/tags/python/" style="font-size: 14px;">python</a> <a href="/tags/qml/" style="font-size: 10px;">qml</a> <a href="/tags/qt/" style="font-size: 10px;">qt</a> <a href="/tags/scipy/" style="font-size: 10px;">scipy</a> <a href="/tags/scrapy/" style="font-size: 10px;">scrapy</a> <a href="/tags/screen/" style="font-size: 10px;">screen</a> <a href="/tags/sklearn/" style="font-size: 10px;">sklearn</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/tar/" style="font-size: 10px;">tar</a> <a href="/tags/tensorflow/" style="font-size: 12px;">tensorflow</a> <a href="/tags/web开发/" style="font-size: 10px;">web开发</a> <a href="/tags/wget/" style="font-size: 10px;">wget</a> <a href="/tags/yum/" style="font-size: 10px;">yum</a> <a href="/tags/读书笔记/" style="font-size: 20px;">读书笔记</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+
+
+
+  <script src="/js/pop-img.js"></script>
+  <script>
+     $(".article-entry p img").popImg();
+  </script>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>

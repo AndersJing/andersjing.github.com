@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  <title>Angular 之顶层理解 | Anders Jing&#39;s site</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="AndersJing, AndersJing's Site">
+  
+  <meta name="description" content="前言个人认为自顶而下学习各种开发知识有事半功倍的效果。第一步，理解目标知识的核心思想和概念，形成整体的认识，知道其出现的背景和采用的解决方案；第二步，学习相关基础语法；第三步，结合使用手册进行实际项目开发，同时不断体会其核心思想，基本就可以把该技术转化为自己的知识。 目前关于 Angular 的教程各种各样，本文是学习 Angular 过程中的个人对其核心思想和概念的理解，如有错误之处欢迎指出。">
+<meta name="keywords" content="Angular,web开发">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Angular 之顶层理解">
+<meta property="og:url" content="http://andersjing.com/2018/07/06/AngularJS/index.html">
+<meta property="og:site_name" content="Anders Jing&#39;s site">
+<meta property="og:description" content="前言个人认为自顶而下学习各种开发知识有事半功倍的效果。第一步，理解目标知识的核心思想和概念，形成整体的认识，知道其出现的背景和采用的解决方案；第二步，学习相关基础语法；第三步，结合使用手册进行实际项目开发，同时不断体会其核心思想，基本就可以把该技术转化为自己的知识。 目前关于 Angular 的教程各种各样，本文是学习 Angular 过程中的个人对其核心思想和概念的理解，如有错误之处欢迎指出。">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://andersjing.com/images/posts/data-bingding.jpg">
+<meta property="og:updated_time" content="2019-04-20T02:37:02.907Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Angular 之顶层理解">
+<meta name="twitter:description" content="前言个人认为自顶而下学习各种开发知识有事半功倍的效果。第一步，理解目标知识的核心思想和概念，形成整体的认识，知道其出现的背景和采用的解决方案；第二步，学习相关基础语法；第三步，结合使用手册进行实际项目开发，同时不断体会其核心思想，基本就可以把该技术转化为自己的知识。 目前关于 Angular 的教程各种各样，本文是学习 Angular 过程中的个人对其核心思想和概念的理解，如有错误之处欢迎指出。">
+<meta name="twitter:image" content="http://andersjing.com/images/posts/data-bingding.jpg">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+  
+  
+
+</head>
+</html>
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">AndersJing&#39;s Site</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        AndersJing&#39;s Site
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        AndersJing 的个人站点
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="AndersJing" target="_blank" href="//AndersJing.com">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com/AndersJing">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-AngularJS" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      Angular 之顶层理解
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/前端/">前端</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2018-07-06
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>个人认为自顶而下学习各种开发知识有事半功倍的效果。第一步，理解目标知识的核心思想和概念，形成整体的认识，知道其出现的背景和采用的解决方案；第二步，学习相关基础语法；第三步，结合使用手册进行实际项目开发，同时不断体会其核心思想，基本就可以把该技术转化为自己的知识。</p>
+<p>目前关于 Angular 的教程各种各样，本文是学习 Angular 过程中的个人对其核心思想和概念的理解，如有错误之处欢迎指出。</p>
+<h3 id="核心思想"><a href="#核心思想" class="headerlink" title="核心思想"></a>核心思想</h3><p>目前比较火的几个 JavaScript 开发框架有 Angular, Vue, 和 React，这些框架都是在提供一个方便操作HTML DOM元素（<a href="http://www.w3school.com.cn/htmldom/dom_intro.asp" target="_blank" rel="noopener">HTML DOM 简介</a>）的工具。不用这些框架直接用 JavaScript 操作完全可行，只是比较繁琐，这些框架把基本的轮子都给实现了，用起来相对比较方便而已。因此，这些框架的核心功能就是如何便捷地操作HTML DOM元素，并因此衍生了很多概念，如Angular的指令(directive)、模型(ng-model)、Scope、controller等，都是围绕着操作 DOM 服务。</p>
+<h3 id="核心概念"><a href="#核心概念" class="headerlink" title="核心概念"></a>核心概念</h3><p>MVC （<a href="https://draveness.me/mvx" target="_blank" rel="noopener">浅谈 MVC、MVP 和 MVVM 架构模式</a>）永远是软件开发的核心思想，Angular 也依赖于该思想。对应于MVC的三个模块，我将Angular的概念划分如下：Scope是数据（Model），包含了数据及其作用域的概念，HTML是视图（View）当然也可以加上CSS一起扮演视图的角色，而扮演控制器（Controller）角色的组件比较多，如controller、service、factory、provider等各种JavaScript函数，这些组件对数据和视图进行操作。指令将普通的 HTML 与 Angular 各种对象连接起来。</p>
+<h4 id="HTML-DOM-amp-指令"><a href="#HTML-DOM-amp-指令" class="headerlink" title="HTML DOM &amp; 指令"></a>HTML DOM &amp; 指令</h4><p>HTML DOM 指 HTML 中的各种元素，是基本概念，只是目前普遍结合一些常用的框架以美化视图，同样是减少造轮子的花销，比如 Bootstrap 等。</p>
+<p>指令是将 Angular 各种对象 和 HTML DOM 连接的桥梁，是网页动态性和响应能力的基础，指令是绑定在DOM元素上的函数，它可以调用方法、定义行为、绑定controller及$scope对象、操作DOM等等。常见的指令如：ng-app、ng-model、、ng-init、ng-click等等等等，可以参考：<a href="https://docs.angularjs.org/guide/directive" target="_blank" rel="noopener">https://docs.angularjs.org/guide/directive</a> 。</p>
+<p>当一个 Angular 应用启动，Angular 编译器就会遍历DOM树（从有ng-app指令属性的那个DOM元素开始），解析HTML，寻找这些指令属性函数。当在一个DOM元素上找到一个或多个这样的指令属性函数，它们就会被收集起来、排序，然后按照优先级顺序被执行。</p>
+<h4 id="Scope"><a href="#Scope" class="headerlink" title="Scope"></a>Scope</h4><p>Scope 直接解释为“范围；余地；视野；眼界；导弹射程”，这里一般称之为作用域。我的理解是 Scope 扮演数据（数据+函数，javascript 中函数也是对象）承载者的角色，是一个用来保存 Angular 中 Model (模型)和函数等的对象。</p>
+<p><code>注：JavaScript 中的所有事物都是对象，布尔型、数字型、字符串、日期、数学和正则表达式、数组、甚至函数，都可以是对象。</code></p>
+<p>$scope 提供双向绑定的功能，“双向”意味着如果view改变了属性值，model就会“看到”这个改变，而如果model改变了属性值，view也同样会“看到”这个改变。Angular 自动搭建好了这个机制。</p>
+<p><img src="/images/posts/data-bingding.jpg" alt="双向绑定"></p>
+<p>为了更好地操作数据，Scope 有其作用域，类似于全局变量/局部变量的概念，有一个根作用域 $rootScope ，作用于整个应用中。</p>
+<h4 id="module"><a href="#module" class="headerlink" title="module"></a>module</h4><p>module，模块，其实就是一系列函数的集合，当应用被启动时，这些函数就会被执行。<br>比如<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> app = angular.module(<span class="string">'myApp'</span>, []);</span><br></pre></td></tr></table></figure></p>
+<p>定义了一个模块，在HTML页面中实例化该应用（模块）：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">ng-app</span>=<span class="string">"myApp"</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>可以把ng-app设在任何DOM元素上，然后该元素就会成为AngularJS启动运行指定应用的地方。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-app</span>=<span class="string">"embeddedApp"</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">h3</span>&gt;</span>Inside an AngularJS app<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="constant"><a href="#constant" class="headerlink" title="constant"></a>constant</h4><p>常量，不能修改其值。</p>
+<h4 id="value"><a href="#value" class="headerlink" title="value"></a>value</h4><p>变量，可以修改值。</p>
+<h4 id="controller"><a href="#controller" class="headerlink" title="controller"></a>controller</h4><p>控制器，简单说就是 Angular 的主函数，其中实现了对数据或者HTML DOM元素的操作，其他各类函数（factory、service等）都可以在这里用。</p>
+<h4 id="factory"><a href="#factory" class="headerlink" title="factory"></a>factory</h4><p>factory 是一个函数，必须有返回值。</p>
+<h4 id="service"><a href="#service" class="headerlink" title="service"></a>service</h4><p>service是服一个函数或对象，与factory区别在于可以没有返回值。Angular 在调用 service 时会用 new 关键字，而调用 factory 时只是调用普通的 function，所以 factory 需要返回，而 service 可以不返回。</p>
+<p>Angular 本身内置了很多服务，比如 $http 服务向服务器发送请求并响应服务器传送过来的数据、 $timeout 服务在规定的毫秒数后执行指定函数等。</p>
+<h4 id="provider"><a href="#provider" class="headerlink" title="provider"></a>provider</h4><p>provider是value、service、factory的底层，其他都是provider的封装。因此，可以通过 provider 创建 service、factory等。</p>
+<h4 id="filter"><a href="#filter" class="headerlink" title="filter"></a>filter</h4><p>过滤器，可用于转换数据，比如 currency 过滤器格式化数字为货币格式、lowercase    格式化字符串为小写等。</p>
+<p>系统内置了一些过滤器，也可以自定义过滤器。</p>
+<h4 id="依赖注入"><a href="#依赖注入" class="headerlink" title="依赖注入"></a>依赖注入</h4><p>依赖注入的思想到处都在用，wiki 上的解释是：依赖注入（Dependency Injection，简称DI）是一种软件设计模式，在这种模式下，一个或更多的依赖（或服务）被注入（或者通过引用传递）到一个独立的对象（或客户端）中，然后成为了该客户端状态的一部分。</p>
+<p>简单来说，就是在下层需要上层服务的时候，上层做修改的时候不需要管下层，下层直接用就好了，从而使得程序设计变得松耦合。</p>
+<p>这个思想不太容易一下子理解，可以参考<a href="https://droidyue.com/blog/2015/06/13/talk-show-about-dependency-injection/" target="_blank" rel="noopener">说说依赖注入</a>。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>感觉本来操控DOM是一个简单的事情，Angular把这个问题搞得挺复杂，尤其是搞了很多概念，导致学习曲线比较陡峭。</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ol>
+<li>AngularJS 教程：<a href="http://www.runoob.com/angularjs/angularjs-tutorial.html" target="_blank" rel="noopener">http://www.runoob.com/angularjs/angularjs-tutorial.html</a></li>
+<li>[译] 2017 年比较 Angular、React、Vue 三剑客：<a href="https://juejin.im/post/5a0d5df1f265da43062a542f" target="_blank" rel="noopener">https://juejin.im/post/5a0d5df1f265da43062a542f</a></li>
+<li>AngularJS中的Provider们：Service和Factory等的区别：<a href="https://segmentfault.com/a/1190000003096933" target="_blank" rel="noopener">https://segmentfault.com/a/1190000003096933</a></li>
+<li>AngularJS – from beginner to expert in 7 steps series：<a href="http://www.ng-newsletter.com/posts/beginner2expert-how_to_start.html" target="_blank" rel="noopener">http://www.ng-newsletter.com/posts/beginner2expert-how_to_start.html</a></li>
+</ol>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2019年04月19日 21:37</p>
+        <p>原始链接： <a class="post-url" href="/2018/07/06/AngularJS/" title="Angular 之顶层理解">http://andersjing.com/2018/07/06/AngularJS/</a></p>
+        <footer>
+            <a href="http://andersjing.com">
+                <img src="/images/logo.png" alt="Anders Jing">
+                Anders Jing
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+        
+            
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;">赏</a>
+</div>
+
+<div id="reward" class="post-modal reward-lay">
+    <a class="close" href="javascript:;" id="reward-close">×</a>
+    <span class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        请打赏~
+        <i class="icon icon-quote-right"></i>
+    </span>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/images/wechat_code.jpg" alt="打赏二维码">
+        </div>
+        <div class="reward-select">
+            
+            <label class="reward-select-item checked" data-id="wechat" data-wechat="/images/wechat_code.jpg">
+                <img class="reward-select-item-wechat" src="/images/wechat.png" alt="微信">
+            </label>
+            
+            
+        </div>
+    </div>
+</div>
+
+
+        
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://andersjing.com/2018/07/06/AngularJS/&title=《Angular 之顶层理解》 — Anders Jing's site&pic=/images/web.jpg" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://andersjing.com/2018/07/06/AngularJS/&title=《Angular 之顶层理解》 — Anders Jing's site&source=this is the site of AndersJing." data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://andersjing.com/2018/07/06/AngularJS/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Angular 之顶层理解》 — Anders Jing's site&url=http://andersjing.com/2018/07/06/AngularJS/&via=http://andersjing.com" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://andersjing.com/2018/07/06/AngularJS/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://andersjing.com/2018/07/06/AngularJS/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/Angular/" class="color3">Angular</a>
+      
+    <a href="/tags/web开发/" class="color1">web开发</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#前言"><span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#核心思想"><span class="post-toc-text">核心思想</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#核心概念"><span class="post-toc-text">核心概念</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#HTML-DOM-amp-指令"><span class="post-toc-text">HTML DOM &amp; 指令</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Scope"><span class="post-toc-text">Scope</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#module"><span class="post-toc-text">module</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#constant"><span class="post-toc-text">constant</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#value"><span class="post-toc-text">value</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#controller"><span class="post-toc-text">controller</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#factory"><span class="post-toc-text">factory</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#service"><span class="post-toc-text">service</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#provider"><span class="post-toc-text">provider</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#filter"><span class="post-toc-text">filter</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#依赖注入"><span class="post-toc-text">依赖注入</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#总结"><span class="post-toc-text">总结</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#参考"><span class="post-toc-text">参考</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/2018/07/25/tensorflow-gpu/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          Ubuntu 16.04 下 TensorFlow-gpu 环境配置与安装
+        
+      </span>
+    </a>
+  
+  
+    <a href="/2018/06/30/hexo-basic-usage/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">Hexo基本用法</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2019 Anders Jing<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "http://andersjing.com",
+      animate: false,
+      isHome: false,
+      share: true,
+      reward: 1
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Bioinformatics/">Bioinformatics</a><a class="category-link" href="/categories/Linux/">Linux</a><a class="category-link" href="/categories/Machine-Learning/">Machine Learning</a><a class="category-link" href="/categories/Python/">Python</a><a class="category-link" href="/categories/QT/">QT</a><a class="category-link" href="/categories/deep-learning/">deep learning</a><a class="category-link" href="/categories/hexo/">hexo</a><a class="category-link" href="/categories/linux/">linux</a><a class="category-link" href="/categories/uncategorized/">uncategorized</a><a class="category-link" href="/categories/前端/">前端</a><a class="category-link" href="/categories/读书笔记/">读书笔记</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/Anaconda/" style="font-size: 10px;">Anaconda</a> <a href="/tags/Angular/" style="font-size: 10px;">Angular</a> <a href="/tags/Blast/" style="font-size: 10px;">Blast</a> <a href="/tags/CentOS/" style="font-size: 10px;">CentOS</a> <a href="/tags/GPU/" style="font-size: 10px;">GPU</a> <a href="/tags/HMM/" style="font-size: 10px;">HMM</a> <a href="/tags/Hexo/" style="font-size: 14px;">Hexo</a> <a href="/tags/Machine-Learning/" style="font-size: 10px;">Machine Learning</a> <a href="/tags/Needleman-Wunsch/" style="font-size: 10px;">Needleman-Wunsch</a> <a href="/tags/PSI-Blast/" style="font-size: 10px;">PSI-Blast</a> <a href="/tags/PSSM/" style="font-size: 10px;">PSSM</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/Rank/" style="font-size: 10px;">Rank</a> <a href="/tags/Smith-Waterman/" style="font-size: 10px;">Smith-Waterman</a> <a href="/tags/Theano/" style="font-size: 10px;">Theano</a> <a href="/tags/centos/" style="font-size: 16px;">centos</a> <a href="/tags/cuda/" style="font-size: 10px;">cuda</a> <a href="/tags/disk/" style="font-size: 10px;">disk</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/glibc/" style="font-size: 10px;">glibc</a> <a href="/tags/libstdc/" style="font-size: 10px;">libstdc</a> <a href="/tags/linux/" style="font-size: 18px;">linux</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/math/" style="font-size: 10px;">math</a> <a href="/tags/oh-my-zsh/" style="font-size: 10px;">oh my zsh</a> <a href="/tags/python/" style="font-size: 14px;">python</a> <a href="/tags/qml/" style="font-size: 10px;">qml</a> <a href="/tags/qt/" style="font-size: 10px;">qt</a> <a href="/tags/scipy/" style="font-size: 10px;">scipy</a> <a href="/tags/scrapy/" style="font-size: 10px;">scrapy</a> <a href="/tags/screen/" style="font-size: 10px;">screen</a> <a href="/tags/sklearn/" style="font-size: 10px;">sklearn</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/tar/" style="font-size: 10px;">tar</a> <a href="/tags/tensorflow/" style="font-size: 12px;">tensorflow</a> <a href="/tags/web开发/" style="font-size: 10px;">web开发</a> <a href="/tags/wget/" style="font-size: 10px;">wget</a> <a href="/tags/yum/" style="font-size: 10px;">yum</a> <a href="/tags/读书笔记/" style="font-size: 20px;">读书笔记</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/Anaconda/" style="font-size: 10px;">Anaconda</a> <a href="/tags/Angular/" style="font-size: 10px;">Angular</a> <a href="/tags/Blast/" style="font-size: 10px;">Blast</a> <a href="/tags/CentOS/" style="font-size: 10px;">CentOS</a> <a href="/tags/GPU/" style="font-size: 10px;">GPU</a> <a href="/tags/HMM/" style="font-size: 10px;">HMM</a> <a href="/tags/Hexo/" style="font-size: 14px;">Hexo</a> <a href="/tags/Machine-Learning/" style="font-size: 10px;">Machine Learning</a> <a href="/tags/Needleman-Wunsch/" style="font-size: 10px;">Needleman-Wunsch</a> <a href="/tags/PSI-Blast/" style="font-size: 10px;">PSI-Blast</a> <a href="/tags/PSSM/" style="font-size: 10px;">PSSM</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/Rank/" style="font-size: 10px;">Rank</a> <a href="/tags/Smith-Waterman/" style="font-size: 10px;">Smith-Waterman</a> <a href="/tags/Theano/" style="font-size: 10px;">Theano</a> <a href="/tags/centos/" style="font-size: 16px;">centos</a> <a href="/tags/cuda/" style="font-size: 10px;">cuda</a> <a href="/tags/disk/" style="font-size: 10px;">disk</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/glibc/" style="font-size: 10px;">glibc</a> <a href="/tags/libstdc/" style="font-size: 10px;">libstdc</a> <a href="/tags/linux/" style="font-size: 18px;">linux</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/math/" style="font-size: 10px;">math</a> <a href="/tags/oh-my-zsh/" style="font-size: 10px;">oh my zsh</a> <a href="/tags/python/" style="font-size: 14px;">python</a> <a href="/tags/qml/" style="font-size: 10px;">qml</a> <a href="/tags/qt/" style="font-size: 10px;">qt</a> <a href="/tags/scipy/" style="font-size: 10px;">scipy</a> <a href="/tags/scrapy/" style="font-size: 10px;">scrapy</a> <a href="/tags/screen/" style="font-size: 10px;">screen</a> <a href="/tags/sklearn/" style="font-size: 10px;">sklearn</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/tar/" style="font-size: 10px;">tar</a> <a href="/tags/tensorflow/" style="font-size: 12px;">tensorflow</a> <a href="/tags/web开发/" style="font-size: 10px;">web开发</a> <a href="/tags/wget/" style="font-size: 10px;">wget</a> <a href="/tags/yum/" style="font-size: 10px;">yum</a> <a href="/tags/读书笔记/" style="font-size: 20px;">读书笔记</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+
+
+
+  <script src="/js/pop-img.js"></script>
+  <script>
+     $(".article-entry p img").popImg();
+  </script>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>

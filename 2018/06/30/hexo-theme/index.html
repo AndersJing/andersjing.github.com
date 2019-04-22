@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  <title>Hexo主题同步 | Anders Jing&#39;s site</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="AndersJing, AndersJing's Site">
+  
+  <meta name="description" content="问题为了方便维护 gitpages 项目，我们可以把整个 gitpages 项目作为一个git项目管理，而 Hexo 主题一般也都是用 git 项目进行管理，我们从远程 git 仓库 clone 一份下来，放到 themes/ 文件夹下。每个主题是一个包含 .git/ 的子项目仓库。所以在 push 主项目的时候不会上传子项目。 解决采用用 fork + subtree 的方案进行解决，这里以 m">
+<meta name="keywords" content="Hexo,git">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo主题同步">
+<meta property="og:url" content="http://andersjing.com/2018/06/30/hexo-theme/index.html">
+<meta property="og:site_name" content="Anders Jing&#39;s site">
+<meta property="og:description" content="问题为了方便维护 gitpages 项目，我们可以把整个 gitpages 项目作为一个git项目管理，而 Hexo 主题一般也都是用 git 项目进行管理，我们从远程 git 仓库 clone 一份下来，放到 themes/ 文件夹下。每个主题是一个包含 .git/ 的子项目仓库。所以在 push 主项目的时候不会上传子项目。 解决采用用 fork + subtree 的方案进行解决，这里以 m">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-04-20T02:37:02.908Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo主题同步">
+<meta name="twitter:description" content="问题为了方便维护 gitpages 项目，我们可以把整个 gitpages 项目作为一个git项目管理，而 Hexo 主题一般也都是用 git 项目进行管理，我们从远程 git 仓库 clone 一份下来，放到 themes/ 文件夹下。每个主题是一个包含 .git/ 的子项目仓库。所以在 push 主项目的时候不会上传子项目。 解决采用用 fork + subtree 的方案进行解决，这里以 m">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+  
+  
+
+</head>
+</html>
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">AndersJing&#39;s Site</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        AndersJing&#39;s Site
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        AndersJing 的个人站点
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="AndersJing" target="_blank" href="//AndersJing.com">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com/AndersJing">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-hexo-theme" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      Hexo主题同步
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/hexo/">hexo</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2018-06-30
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>为了方便维护 gitpages 项目，我们可以把整个 gitpages 项目作为一个git项目管理，而 Hexo 主题一般也都是用 git 项目进行管理，我们从远程 git 仓库 clone 一份下来，放到 themes/ 文件夹下。每个主题是一个包含 .git/ 的子项目仓库。所以在 push 主项目的时候不会上传子项目。</p>
+<h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3><p>采用用 fork + subtree 的方案进行解决，这里以 <a href="https://github.com/WongMinHo/hexo-theme-miho.git" target="_blank" rel="noopener">miho</a> theme 为例。</p>
+<p>首先要 fork 主题，然后拉取到本地做修改，修改好后push到远程仓库。</p>
+<p>然后用 git subtree 把 themes/miho/ 当做子项目来统一管理。subtree 的用法可以参考其他相关教程。</p>
+<h4 id="1-删除现有的主题"><a href="#1-删除现有的主题" class="headerlink" title="1. 删除现有的主题"></a>1. 删除现有的主题</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">rm -rf themes/miho</span><br><span class="line">git add -A</span><br><span class="line">git commit -m <span class="string">"delete miho"</span></span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
+<h4 id="2-绑定子项目"><a href="#2-绑定子项目" class="headerlink" title="2. 绑定子项目"></a>2. 绑定子项目</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git remote add -f miho https://github.com/WongMinHo/hexo-theme-miho.git</span><br><span class="line">git subtree add --prefix=themes/miho miho master --squash</span><br></pre></td></tr></table></figure>
+<h4 id="3-更新子项目"><a href="#3-更新子项目" class="headerlink" title="3. 更新子项目"></a>3. 更新子项目</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git fetch miho master</span><br><span class="line">git subtree pull --prefix=themes/miho miho master --squash</span><br></pre></td></tr></table></figure>
+<h4 id="4-把项目push到远程仓库"><a href="#4-把项目push到远程仓库" class="headerlink" title="4. 把项目push到远程仓库"></a>4. 把项目push到远程仓库</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
+<p>现在远程仓库的themes/miho/就有内容了，并且跟子项目的远程仓库可以保持更新，在主项目中修改也可以push到子项目的远程。</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ol>
+<li><a href="http://w4lle.com/2016/06/06/Hexo-themes/index.html" target="_blank" rel="noopener">Hexo主题同步</a></li>
+</ol>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2019年04月19日 21:37</p>
+        <p>原始链接： <a class="post-url" href="/2018/06/30/hexo-theme/" title="Hexo主题同步">http://andersjing.com/2018/06/30/hexo-theme/</a></p>
+        <footer>
+            <a href="http://andersjing.com">
+                <img src="/images/logo.png" alt="Anders Jing">
+                Anders Jing
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+        
+            
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;">赏</a>
+</div>
+
+<div id="reward" class="post-modal reward-lay">
+    <a class="close" href="javascript:;" id="reward-close">×</a>
+    <span class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        请打赏~
+        <i class="icon icon-quote-right"></i>
+    </span>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/images/wechat_code.jpg" alt="打赏二维码">
+        </div>
+        <div class="reward-select">
+            
+            <label class="reward-select-item checked" data-id="wechat" data-wechat="/images/wechat_code.jpg">
+                <img class="reward-select-item-wechat" src="/images/wechat.png" alt="微信">
+            </label>
+            
+            
+        </div>
+    </div>
+</div>
+
+
+        
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://andersjing.com/2018/06/30/hexo-theme/&title=《Hexo主题同步》 — Anders Jing's site&pic=/images/posts/hexo.png" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://andersjing.com/2018/06/30/hexo-theme/&title=《Hexo主题同步》 — Anders Jing's site&source=this is the site of AndersJing." data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://andersjing.com/2018/06/30/hexo-theme/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Hexo主题同步》 — Anders Jing's site&url=http://andersjing.com/2018/06/30/hexo-theme/&via=http://andersjing.com" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://andersjing.com/2018/06/30/hexo-theme/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://andersjing.com/2018/06/30/hexo-theme/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/Hexo/" class="color5">Hexo</a>
+      
+    <a href="/tags/git/" class="color4">git</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#问题"><span class="post-toc-text">问题</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#解决"><span class="post-toc-text">解决</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1-删除现有的主题"><span class="post-toc-text">1. 删除现有的主题</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2-绑定子项目"><span class="post-toc-text">2. 绑定子项目</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#3-更新子项目"><span class="post-toc-text">3. 更新子项目</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#4-把项目push到远程仓库"><span class="post-toc-text">4. 把项目push到远程仓库</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#参考"><span class="post-toc-text">参考</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/2018/06/30/hexo-basic-usage/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          Hexo基本用法
+        
+      </span>
+    </a>
+  
+  
+    <a href="/2018/06/30/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">Hello World</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2019 Anders Jing<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "http://andersjing.com",
+      animate: false,
+      isHome: false,
+      share: true,
+      reward: 1
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Bioinformatics/">Bioinformatics</a><a class="category-link" href="/categories/Linux/">Linux</a><a class="category-link" href="/categories/Machine-Learning/">Machine Learning</a><a class="category-link" href="/categories/Python/">Python</a><a class="category-link" href="/categories/QT/">QT</a><a class="category-link" href="/categories/deep-learning/">deep learning</a><a class="category-link" href="/categories/hexo/">hexo</a><a class="category-link" href="/categories/linux/">linux</a><a class="category-link" href="/categories/uncategorized/">uncategorized</a><a class="category-link" href="/categories/前端/">前端</a><a class="category-link" href="/categories/读书笔记/">读书笔记</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/Anaconda/" style="font-size: 10px;">Anaconda</a> <a href="/tags/Angular/" style="font-size: 10px;">Angular</a> <a href="/tags/Blast/" style="font-size: 10px;">Blast</a> <a href="/tags/CentOS/" style="font-size: 10px;">CentOS</a> <a href="/tags/GPU/" style="font-size: 10px;">GPU</a> <a href="/tags/HMM/" style="font-size: 10px;">HMM</a> <a href="/tags/Hexo/" style="font-size: 14px;">Hexo</a> <a href="/tags/Machine-Learning/" style="font-size: 10px;">Machine Learning</a> <a href="/tags/Needleman-Wunsch/" style="font-size: 10px;">Needleman-Wunsch</a> <a href="/tags/PSI-Blast/" style="font-size: 10px;">PSI-Blast</a> <a href="/tags/PSSM/" style="font-size: 10px;">PSSM</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/Rank/" style="font-size: 10px;">Rank</a> <a href="/tags/Smith-Waterman/" style="font-size: 10px;">Smith-Waterman</a> <a href="/tags/Theano/" style="font-size: 10px;">Theano</a> <a href="/tags/centos/" style="font-size: 16px;">centos</a> <a href="/tags/cuda/" style="font-size: 10px;">cuda</a> <a href="/tags/disk/" style="font-size: 10px;">disk</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/glibc/" style="font-size: 10px;">glibc</a> <a href="/tags/libstdc/" style="font-size: 10px;">libstdc</a> <a href="/tags/linux/" style="font-size: 18px;">linux</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/math/" style="font-size: 10px;">math</a> <a href="/tags/oh-my-zsh/" style="font-size: 10px;">oh my zsh</a> <a href="/tags/python/" style="font-size: 14px;">python</a> <a href="/tags/qml/" style="font-size: 10px;">qml</a> <a href="/tags/qt/" style="font-size: 10px;">qt</a> <a href="/tags/scipy/" style="font-size: 10px;">scipy</a> <a href="/tags/scrapy/" style="font-size: 10px;">scrapy</a> <a href="/tags/screen/" style="font-size: 10px;">screen</a> <a href="/tags/sklearn/" style="font-size: 10px;">sklearn</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/tar/" style="font-size: 10px;">tar</a> <a href="/tags/tensorflow/" style="font-size: 12px;">tensorflow</a> <a href="/tags/web开发/" style="font-size: 10px;">web开发</a> <a href="/tags/wget/" style="font-size: 10px;">wget</a> <a href="/tags/yum/" style="font-size: 10px;">yum</a> <a href="/tags/读书笔记/" style="font-size: 20px;">读书笔记</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/Anaconda/" style="font-size: 10px;">Anaconda</a> <a href="/tags/Angular/" style="font-size: 10px;">Angular</a> <a href="/tags/Blast/" style="font-size: 10px;">Blast</a> <a href="/tags/CentOS/" style="font-size: 10px;">CentOS</a> <a href="/tags/GPU/" style="font-size: 10px;">GPU</a> <a href="/tags/HMM/" style="font-size: 10px;">HMM</a> <a href="/tags/Hexo/" style="font-size: 14px;">Hexo</a> <a href="/tags/Machine-Learning/" style="font-size: 10px;">Machine Learning</a> <a href="/tags/Needleman-Wunsch/" style="font-size: 10px;">Needleman-Wunsch</a> <a href="/tags/PSI-Blast/" style="font-size: 10px;">PSI-Blast</a> <a href="/tags/PSSM/" style="font-size: 10px;">PSSM</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/Rank/" style="font-size: 10px;">Rank</a> <a href="/tags/Smith-Waterman/" style="font-size: 10px;">Smith-Waterman</a> <a href="/tags/Theano/" style="font-size: 10px;">Theano</a> <a href="/tags/centos/" style="font-size: 16px;">centos</a> <a href="/tags/cuda/" style="font-size: 10px;">cuda</a> <a href="/tags/disk/" style="font-size: 10px;">disk</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/glibc/" style="font-size: 10px;">glibc</a> <a href="/tags/libstdc/" style="font-size: 10px;">libstdc</a> <a href="/tags/linux/" style="font-size: 18px;">linux</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/math/" style="font-size: 10px;">math</a> <a href="/tags/oh-my-zsh/" style="font-size: 10px;">oh my zsh</a> <a href="/tags/python/" style="font-size: 14px;">python</a> <a href="/tags/qml/" style="font-size: 10px;">qml</a> <a href="/tags/qt/" style="font-size: 10px;">qt</a> <a href="/tags/scipy/" style="font-size: 10px;">scipy</a> <a href="/tags/scrapy/" style="font-size: 10px;">scrapy</a> <a href="/tags/screen/" style="font-size: 10px;">screen</a> <a href="/tags/sklearn/" style="font-size: 10px;">sklearn</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/tar/" style="font-size: 10px;">tar</a> <a href="/tags/tensorflow/" style="font-size: 12px;">tensorflow</a> <a href="/tags/web开发/" style="font-size: 10px;">web开发</a> <a href="/tags/wget/" style="font-size: 10px;">wget</a> <a href="/tags/yum/" style="font-size: 10px;">yum</a> <a href="/tags/读书笔记/" style="font-size: 20px;">读书笔记</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+
+
+
+  <script src="/js/pop-img.js"></script>
+  <script>
+     $(".article-entry p img").popImg();
+  </script>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>

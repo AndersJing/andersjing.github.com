@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  <title>Anaconda 使用笔记 | Anders Jing&#39;s site</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="AndersJing, AndersJing's Site">
+  
+  <meta name="description" content="Anaconda是可以便捷获取包且对包能够进行管理，同时对环境可以统一管理的发行版本。Anaconda包含了conda、Python在内的超过180个科学包及其依赖项。 总的来说，Anaconda是一个可以便捷地对各种包进行管理的工具，可以实现对包的安装和环境的管理，更详细的介绍见：Anaconda介绍、安装及使用教程 Anaconda是基于Pytho的，但是可以对多种语言的包进行管理，本文主要针">
+<meta name="keywords" content="Anaconda,Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Anaconda 使用笔记">
+<meta property="og:url" content="http://andersjing.com/2018/11/30/2018-11-30-anaconda/index.html">
+<meta property="og:site_name" content="Anders Jing&#39;s site">
+<meta property="og:description" content="Anaconda是可以便捷获取包且对包能够进行管理，同时对环境可以统一管理的发行版本。Anaconda包含了conda、Python在内的超过180个科学包及其依赖项。 总的来说，Anaconda是一个可以便捷地对各种包进行管理的工具，可以实现对包的安装和环境的管理，更详细的介绍见：Anaconda介绍、安装及使用教程 Anaconda是基于Pytho的，但是可以对多种语言的包进行管理，本文主要针">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-04-20T02:37:02.906Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Anaconda 使用笔记">
+<meta name="twitter:description" content="Anaconda是可以便捷获取包且对包能够进行管理，同时对环境可以统一管理的发行版本。Anaconda包含了conda、Python在内的超过180个科学包及其依赖项。 总的来说，Anaconda是一个可以便捷地对各种包进行管理的工具，可以实现对包的安装和环境的管理，更详细的介绍见：Anaconda介绍、安装及使用教程 Anaconda是基于Pytho的，但是可以对多种语言的包进行管理，本文主要针">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+  
+  
+
+</head>
+</html>
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">AndersJing&#39;s Site</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        AndersJing&#39;s Site
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        AndersJing 的个人站点
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="AndersJing" target="_blank" href="//AndersJing.com">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com/AndersJing">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-2018-11-30-anaconda" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      Anaconda 使用笔记
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/Python/">Python</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2018-11-30
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <p>Anaconda是可以便捷获取包且对包能够进行管理，同时对环境可以统一管理的发行版本。Anaconda包含了conda、Python在内的超过180个科学包及其依赖项。</p>
+<p>总的来说，Anaconda是一个可以便捷地对各种包进行管理的工具，可以实现对包的安装和环境的管理，更详细的介绍见：<a href="https://zhuanlan.zhihu.com/p/32925500" target="_blank" rel="noopener">Anaconda介绍、安装及使用教程</a></p>
+<p>Anaconda是基于Pytho的，但是可以对多种语言的包进行管理，本文主要针对Python下的应用进行总结。</p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>前往官方下载网址：<a href="https://www.anaconda.com/download/" target="_blank" rel="noopener">https://www.anaconda.com/download/</a> ，下载对应的安装包，并按照提示进行安装即可。</p>
+<p>需要说明的是，不管是哪个Python版本（Python3 或 Python 2.7）下的安装包，安装之后都可以创建各种Python版本的环境。</p>
+<h4 id="命令行安装"><a href="#命令行安装" class="headerlink" title="命令行安装"></a>命令行安装</h4><ol>
+<li>前往官方下载页面下载安装文件，如： <a href="https://repo.anaconda.com/archive/Anaconda3-5.3.1-Linux-x86_64.sh" target="_blank" rel="noopener">https://repo.anaconda.com/archive/Anaconda3-5.3.1-Linux-x86_64.sh</a> 。</li>
+<li>下载完成后，打开命令终端。</li>
+<li>安装命令： <code>bash ~/Downloads/Anaconda3-5.3.1-Linux-x86_64.sh</code></li>
+<li>同意许可证、选择安装路径、安装路径添加到bash_profile即可。</li>
+<li>安装完成，当前终端输入<code>source ~/.bashrc</code>使新的环境生效，或者重新打开一个新的终端。</li>
+<li>输入<code>conda --version</code>，验证安装结果。</li>
+</ol>
+<h3 id="环境管理"><a href="#环境管理" class="headerlink" title="环境管理"></a>环境管理</h3><h4 id="更新conda至最新版本"><a href="#更新conda至最新版本" class="headerlink" title="更新conda至最新版本"></a>更新conda至最新版本</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda update conda</span><br></pre></td></tr></table></figure>
+<h4 id="查看conda帮助信息"><a href="#查看conda帮助信息" class="headerlink" title="查看conda帮助信息"></a>查看conda帮助信息</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda -h</span><br></pre></td></tr></table></figure>
+<h4 id="创建新环境"><a href="#创建新环境" class="headerlink" title="创建新环境"></a>创建新环境</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda create --name &lt;env_name&gt; &lt;package_names&gt;</span><br></pre></td></tr></table></figure>
+<p>注：</p>
+<ul>
+<li><p>如果要安装指定的版本号，则只需要在包名后面以 = 和版本号的形式执行。如： conda create —name python2 python=2.7 ，即创建一个名为“python2”的环境，环境中安装版本为2.7的python。</p>
+</li>
+<li><p>安装Python时没有指定Python的版本，那么将会安装与Anaconda版本相同的Python版本，即如果安装Anaconda第2版，则会自动安装Python 2.x；如果安装Anaconda第3版，则会自动安装Python 3.x。</p>
+</li>
+</ul>
+<h4 id="切换环境"><a href="#切换环境" class="headerlink" title="切换环境"></a>切换环境</h4><ul>
+<li><p>Linux 或 macOS</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> activate &lt;env_name&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Windows</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">activate &lt;env_name&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="退出环境至root"><a href="#退出环境至root" class="headerlink" title="退出环境至root"></a>退出环境至root</h4><ul>
+<li><p>Linux 或 macOS</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> deactivate</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Windows</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">deactivate</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="显示已创建环境"><a href="#显示已创建环境" class="headerlink" title="显示已创建环境"></a>显示已创建环境</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda info -e</span><br></pre></td></tr></table></figure>
+<h4 id="复制环境"><a href="#复制环境" class="headerlink" title="复制环境"></a>复制环境</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda create --name &lt;new_env_name&gt; --<span class="built_in">clone</span> &lt;copied_env_name&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="删除环境"><a href="#删除环境" class="headerlink" title="删除环境"></a>删除环境</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda remove --name &lt;env_name&gt; --all</span><br></pre></td></tr></table></figure>
+<h3 id="包管理"><a href="#包管理" class="headerlink" title="包管理"></a>包管理</h3><h4 id="安装包"><a href="#安装包" class="headerlink" title="安装包"></a>安装包</h4><h5 id="添加-Anaconda-镜像源"><a href="#添加-Anaconda-镜像源" class="headerlink" title="添加 Anaconda 镜像源"></a>添加 Anaconda 镜像源</h5><p>国内下载有些包速度比较慢，可以到 <a href="https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/" target="_blank" rel="noopener">https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/</a> 下载。</p>
+<p>或者：<a href="https://mirrors.ustc.edu.cn/anaconda/pkgs/free/" target="_blank" rel="noopener">https://mirrors.ustc.edu.cn/anaconda/pkgs/free/</a></p>
+<p>添加 Anaconda 仓库的镜像，运行以下命令:<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">conda config --add channels <span class="string">'https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/'</span></span><br><span class="line">conda config --add channels <span class="string">'https://mirrors.ustc.edu.cn/anaconda/pkgs/free/'</span></span><br><span class="line">conda config --<span class="built_in">set</span> show_channel_urls yes</span><br></pre></td></tr></table></figure></p>
+<p>即可添加 Anaconda Python 免费仓库。</p>
+<h5 id="在指定环境中安装包"><a href="#在指定环境中安装包" class="headerlink" title="在指定环境中安装包"></a>在指定环境中安装包</h5><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda install --name &lt;env_name&gt; &lt;package_name&gt;</span><br></pre></td></tr></table></figure>
+<p>如： conda install —name python2 pandas 即在名为“python2”的环境中安装pandas包。</p>
+<h5 id="在当前环境中安装包"><a href="#在当前环境中安装包" class="headerlink" title="在当前环境中安装包"></a>在当前环境中安装包</h5><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda install &lt;package_name&gt;</span><br></pre></td></tr></table></figure>
+<h5 id="使用pip安装包"><a href="#使用pip安装包" class="headerlink" title="使用pip安装包"></a>使用pip安装包</h5><p>当使用 conda install 无法进行安装时，可以使用pip进行安装。例如：see包。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install &lt;package_name&gt;</span><br></pre></td></tr></table></figure>
+<p>注:</p>
+<ul>
+<li>pip只是包管理器，无法对环境进行管理。因此如果想在指定环境中使用pip进行安装包，则需要先切换到指定环境中，再使用pip命令安装包。</li>
+</ul>
+<h5 id="从-http-Anaconda-org-安装包"><a href="#从-http-Anaconda-org-安装包" class="headerlink" title="从 http://Anaconda.org 安装包"></a>从 <a href="http://Anaconda.org" target="_blank" rel="noopener">http://Anaconda.org</a> 安装包</h5><p>当使用 conda install 无法进行安装时，可以考虑从<a href="http://Anaconda.org中获取安装包的命令，并进行安装。" target="_blank" rel="noopener">http://Anaconda.org中获取安装包的命令，并进行安装。</a></p>
+<p>首先搜索，然后复制“To install this package with conda run:”下方的命令，并粘贴在终端中执行即可。</p>
+<h4 id="卸载包"><a href="#卸载包" class="headerlink" title="卸载包"></a>卸载包</h4><h5 id="卸载指定环境中的包"><a href="#卸载指定环境中的包" class="headerlink" title="卸载指定环境中的包"></a>卸载指定环境中的包</h5><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda remove --name &lt;env_name&gt; &lt;package_name&gt;</span><br></pre></td></tr></table></figure>
+<p>如<code>conda remove --name python2 pandas</code> 即卸载名为“python2”中的pandas包。</p>
+<h5 id="卸载当前环境中的包"><a href="#卸载当前环境中的包" class="headerlink" title="卸载当前环境中的包"></a>卸载当前环境中的包</h5><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda remove &lt;package_name&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="更新包"><a href="#更新包" class="headerlink" title="更新包"></a>更新包</h4><h5 id="更新所有包"><a href="#更新所有包" class="headerlink" title="更新所有包"></a>更新所有包</h5><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda update --all</span><br></pre></td></tr></table></figure>
+<p>或<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda upgrade --all</span><br></pre></td></tr></table></figure></p>
+<p>建议：在安装Anaconda之后执行上述命令更新Anaconda中的所有包至最新版本，便于使用。</p>
+<h5 id="更新指定包"><a href="#更新指定包" class="headerlink" title="更新指定包"></a>更新指定包</h5><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda update &lt;package_name&gt;</span><br></pre></td></tr></table></figure>
+<p>或<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda upgrade &lt;package_name&gt;</span><br></pre></td></tr></table></figure></p>
+<p>注:</p>
+<ul>
+<li>更新多个指定包，则包名以空格隔开，向后排列。如： conda update pandas numpy matplotlib 即更新pandas、numpy、matplotlib包。</li>
+</ul>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><a href="https://zhuanlan.zhihu.com/p/32925500" target="_blank" rel="noopener">Anaconda介绍、安装及使用教程</a></li>
+<li><a href="https://blog.csdn.net/huludan/article/details/52711550" target="_blank" rel="noopener">更改Anaconda下载源，提高下载速度</a></li>
+</ul>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2019年04月19日 21:37</p>
+        <p>原始链接： <a class="post-url" href="/2018/11/30/2018-11-30-anaconda/" title="Anaconda 使用笔记">http://andersjing.com/2018/11/30/2018-11-30-anaconda/</a></p>
+        <footer>
+            <a href="http://andersjing.com">
+                <img src="/images/logo.png" alt="Anders Jing">
+                Anders Jing
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+        
+            
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;">赏</a>
+</div>
+
+<div id="reward" class="post-modal reward-lay">
+    <a class="close" href="javascript:;" id="reward-close">×</a>
+    <span class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        请打赏~
+        <i class="icon icon-quote-right"></i>
+    </span>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/images/wechat_code.jpg" alt="打赏二维码">
+        </div>
+        <div class="reward-select">
+            
+            <label class="reward-select-item checked" data-id="wechat" data-wechat="/images/wechat_code.jpg">
+                <img class="reward-select-item-wechat" src="/images/wechat.png" alt="微信">
+            </label>
+            
+            
+        </div>
+    </div>
+</div>
+
+
+        
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://andersjing.com/2018/11/30/2018-11-30-anaconda/&title=《Anaconda 使用笔记》 — Anders Jing's site&pic=/images/posts/ubuntu.png" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://andersjing.com/2018/11/30/2018-11-30-anaconda/&title=《Anaconda 使用笔记》 — Anders Jing's site&source=this is the site of AndersJing." data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://andersjing.com/2018/11/30/2018-11-30-anaconda/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Anaconda 使用笔记》 — Anders Jing's site&url=http://andersjing.com/2018/11/30/2018-11-30-anaconda/&via=http://andersjing.com" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://andersjing.com/2018/11/30/2018-11-30-anaconda/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://andersjing.com/2018/11/30/2018-11-30-anaconda/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/Anaconda/" class="color4">Anaconda</a>
+      
+    <a href="/tags/Python/" class="color2">Python</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装"><span class="post-toc-text">安装</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#命令行安装"><span class="post-toc-text">命令行安装</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#环境管理"><span class="post-toc-text">环境管理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#更新conda至最新版本"><span class="post-toc-text">更新conda至最新版本</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#查看conda帮助信息"><span class="post-toc-text">查看conda帮助信息</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#创建新环境"><span class="post-toc-text">创建新环境</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#切换环境"><span class="post-toc-text">切换环境</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#退出环境至root"><span class="post-toc-text">退出环境至root</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#显示已创建环境"><span class="post-toc-text">显示已创建环境</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#复制环境"><span class="post-toc-text">复制环境</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#删除环境"><span class="post-toc-text">删除环境</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#包管理"><span class="post-toc-text">包管理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#安装包"><span class="post-toc-text">安装包</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#添加-Anaconda-镜像源"><span class="post-toc-text">添加 Anaconda 镜像源</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#在指定环境中安装包"><span class="post-toc-text">在指定环境中安装包</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#在当前环境中安装包"><span class="post-toc-text">在当前环境中安装包</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#使用pip安装包"><span class="post-toc-text">使用pip安装包</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#从-http-Anaconda-org-安装包"><span class="post-toc-text">从 http://Anaconda.org 安装包</span></a></li></ol></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#卸载包"><span class="post-toc-text">卸载包</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#卸载指定环境中的包"><span class="post-toc-text">卸载指定环境中的包</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#卸载当前环境中的包"><span class="post-toc-text">卸载当前环境中的包</span></a></li></ol></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#更新包"><span class="post-toc-text">更新包</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#更新所有包"><span class="post-toc-text">更新所有包</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#更新指定包"><span class="post-toc-text">更新指定包</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#参考"><span class="post-toc-text">参考</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/2019/04/20/2019-04-20-LearningToRank/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          Learn to Rank 简介
+        
+      </span>
+    </a>
+  
+  
+    <a href="/2018/11/27/2018-11-27-hexo-math/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">Hexo 支持数学公式</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2019 Anders Jing<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "http://andersjing.com",
+      animate: false,
+      isHome: false,
+      share: true,
+      reward: 1
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Bioinformatics/">Bioinformatics</a><a class="category-link" href="/categories/Linux/">Linux</a><a class="category-link" href="/categories/Machine-Learning/">Machine Learning</a><a class="category-link" href="/categories/Python/">Python</a><a class="category-link" href="/categories/QT/">QT</a><a class="category-link" href="/categories/deep-learning/">deep learning</a><a class="category-link" href="/categories/hexo/">hexo</a><a class="category-link" href="/categories/linux/">linux</a><a class="category-link" href="/categories/uncategorized/">uncategorized</a><a class="category-link" href="/categories/前端/">前端</a><a class="category-link" href="/categories/读书笔记/">读书笔记</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/Anaconda/" style="font-size: 10px;">Anaconda</a> <a href="/tags/Angular/" style="font-size: 10px;">Angular</a> <a href="/tags/Blast/" style="font-size: 10px;">Blast</a> <a href="/tags/CentOS/" style="font-size: 10px;">CentOS</a> <a href="/tags/GPU/" style="font-size: 10px;">GPU</a> <a href="/tags/HMM/" style="font-size: 10px;">HMM</a> <a href="/tags/Hexo/" style="font-size: 14px;">Hexo</a> <a href="/tags/Machine-Learning/" style="font-size: 10px;">Machine Learning</a> <a href="/tags/Needleman-Wunsch/" style="font-size: 10px;">Needleman-Wunsch</a> <a href="/tags/PSI-Blast/" style="font-size: 10px;">PSI-Blast</a> <a href="/tags/PSSM/" style="font-size: 10px;">PSSM</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/Rank/" style="font-size: 10px;">Rank</a> <a href="/tags/Smith-Waterman/" style="font-size: 10px;">Smith-Waterman</a> <a href="/tags/Theano/" style="font-size: 10px;">Theano</a> <a href="/tags/centos/" style="font-size: 16px;">centos</a> <a href="/tags/cuda/" style="font-size: 10px;">cuda</a> <a href="/tags/disk/" style="font-size: 10px;">disk</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/glibc/" style="font-size: 10px;">glibc</a> <a href="/tags/libstdc/" style="font-size: 10px;">libstdc</a> <a href="/tags/linux/" style="font-size: 18px;">linux</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/math/" style="font-size: 10px;">math</a> <a href="/tags/oh-my-zsh/" style="font-size: 10px;">oh my zsh</a> <a href="/tags/python/" style="font-size: 14px;">python</a> <a href="/tags/qml/" style="font-size: 10px;">qml</a> <a href="/tags/qt/" style="font-size: 10px;">qt</a> <a href="/tags/scipy/" style="font-size: 10px;">scipy</a> <a href="/tags/scrapy/" style="font-size: 10px;">scrapy</a> <a href="/tags/screen/" style="font-size: 10px;">screen</a> <a href="/tags/sklearn/" style="font-size: 10px;">sklearn</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/tar/" style="font-size: 10px;">tar</a> <a href="/tags/tensorflow/" style="font-size: 12px;">tensorflow</a> <a href="/tags/web开发/" style="font-size: 10px;">web开发</a> <a href="/tags/wget/" style="font-size: 10px;">wget</a> <a href="/tags/yum/" style="font-size: 10px;">yum</a> <a href="/tags/读书笔记/" style="font-size: 20px;">读书笔记</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/Anaconda/" style="font-size: 10px;">Anaconda</a> <a href="/tags/Angular/" style="font-size: 10px;">Angular</a> <a href="/tags/Blast/" style="font-size: 10px;">Blast</a> <a href="/tags/CentOS/" style="font-size: 10px;">CentOS</a> <a href="/tags/GPU/" style="font-size: 10px;">GPU</a> <a href="/tags/HMM/" style="font-size: 10px;">HMM</a> <a href="/tags/Hexo/" style="font-size: 14px;">Hexo</a> <a href="/tags/Machine-Learning/" style="font-size: 10px;">Machine Learning</a> <a href="/tags/Needleman-Wunsch/" style="font-size: 10px;">Needleman-Wunsch</a> <a href="/tags/PSI-Blast/" style="font-size: 10px;">PSI-Blast</a> <a href="/tags/PSSM/" style="font-size: 10px;">PSSM</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/Rank/" style="font-size: 10px;">Rank</a> <a href="/tags/Smith-Waterman/" style="font-size: 10px;">Smith-Waterman</a> <a href="/tags/Theano/" style="font-size: 10px;">Theano</a> <a href="/tags/centos/" style="font-size: 16px;">centos</a> <a href="/tags/cuda/" style="font-size: 10px;">cuda</a> <a href="/tags/disk/" style="font-size: 10px;">disk</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/glibc/" style="font-size: 10px;">glibc</a> <a href="/tags/libstdc/" style="font-size: 10px;">libstdc</a> <a href="/tags/linux/" style="font-size: 18px;">linux</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/math/" style="font-size: 10px;">math</a> <a href="/tags/oh-my-zsh/" style="font-size: 10px;">oh my zsh</a> <a href="/tags/python/" style="font-size: 14px;">python</a> <a href="/tags/qml/" style="font-size: 10px;">qml</a> <a href="/tags/qt/" style="font-size: 10px;">qt</a> <a href="/tags/scipy/" style="font-size: 10px;">scipy</a> <a href="/tags/scrapy/" style="font-size: 10px;">scrapy</a> <a href="/tags/screen/" style="font-size: 10px;">screen</a> <a href="/tags/sklearn/" style="font-size: 10px;">sklearn</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/tar/" style="font-size: 10px;">tar</a> <a href="/tags/tensorflow/" style="font-size: 12px;">tensorflow</a> <a href="/tags/web开发/" style="font-size: 10px;">web开发</a> <a href="/tags/wget/" style="font-size: 10px;">wget</a> <a href="/tags/yum/" style="font-size: 10px;">yum</a> <a href="/tags/读书笔记/" style="font-size: 20px;">读书笔记</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+
+
+
+  <script src="/js/pop-img.js"></script>
+  <script>
+     $(".article-entry p img").popImg();
+  </script>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>

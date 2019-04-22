@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  <title>Ubuntu 16.04 下 TensorFlow-gpu 环境配置与安装 | Anders Jing&#39;s site</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="AndersJing, AndersJing's Site">
+  
+  <meta name="description" content="前言跑深度学习的任务，在GPU下明显会比CPU下加速很多，本文对Ubuntu下 TensorFlow-gpu 运行环境的安装进行介绍。 环境介绍操作系统：Ubuntu 16.04CPU: Intel(R) Core(TM) i7-8700 CPU @ 3.20GHzGPU：NVIDIA GeForce GTX 1070显卡驱动版本： 384.111CUDA 版本：9.0cuDNN 版本：7.0.5">
+<meta name="keywords" content="tensorflow,cuda,GPU">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ubuntu 16.04 下 TensorFlow-gpu 环境配置与安装">
+<meta property="og:url" content="http://andersjing.com/2018/07/25/tensorflow-gpu/index.html">
+<meta property="og:site_name" content="Anders Jing&#39;s site">
+<meta property="og:description" content="前言跑深度学习的任务，在GPU下明显会比CPU下加速很多，本文对Ubuntu下 TensorFlow-gpu 运行环境的安装进行介绍。 环境介绍操作系统：Ubuntu 16.04CPU: Intel(R) Core(TM) i7-8700 CPU @ 3.20GHzGPU：NVIDIA GeForce GTX 1070显卡驱动版本： 384.111CUDA 版本：9.0cuDNN 版本：7.0.5">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-04-20T02:37:02.909Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Ubuntu 16.04 下 TensorFlow-gpu 环境配置与安装">
+<meta name="twitter:description" content="前言跑深度学习的任务，在GPU下明显会比CPU下加速很多，本文对Ubuntu下 TensorFlow-gpu 运行环境的安装进行介绍。 环境介绍操作系统：Ubuntu 16.04CPU: Intel(R) Core(TM) i7-8700 CPU @ 3.20GHzGPU：NVIDIA GeForce GTX 1070显卡驱动版本： 384.111CUDA 版本：9.0cuDNN 版本：7.0.5">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+  
+  
+
+</head>
+</html>
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">AndersJing&#39;s Site</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        AndersJing&#39;s Site
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        AndersJing 的个人站点
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="AndersJing" target="_blank" href="//AndersJing.com">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com/AndersJing">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-tensorflow-gpu" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      Ubuntu 16.04 下 TensorFlow-gpu 环境配置与安装
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/deeplearning/">deep learning</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2018-07-25
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>跑深度学习的任务，在GPU下明显会比CPU下加速很多，本文对Ubuntu下 TensorFlow-gpu 运行环境的安装进行介绍。</p>
+<h3 id="环境介绍"><a href="#环境介绍" class="headerlink" title="环境介绍"></a>环境介绍</h3><p>操作系统：Ubuntu 16.04<br>CPU: Intel(R) Core(TM) i7-8700 CPU @ 3.20GHz<br>GPU：NVIDIA GeForce GTX 1070<br>显卡驱动版本： 384.111<br>CUDA 版本：9.0<br>cuDNN 版本：7.0.5.15<br>TensorFlow 版本：tensorflow-gpu 1.9.0<br>Python 版本：Python 3.5.2</p>
+<h3 id="1-显卡驱动安装"><a href="#1-显卡驱动安装" class="headerlink" title="1. 显卡驱动安装"></a>1. 显卡驱动安装</h3><h4 id="apt-安装"><a href="#apt-安装" class="headerlink" title="apt 安装"></a>apt 安装</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo add-apt-repository -y ppa:graphics-drivers/ppa</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install -y nvidia-390</span><br></pre></td></tr></table></figure>
+<p>安装结果验证，输入：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvidia-smi</span><br></pre></td></tr></table></figure></p>
+<p>如果返回显卡相关信息，即表示已经安装成功。</p>
+<h4 id="手动安装"><a href="#手动安装" class="headerlink" title="手动安装"></a>手动安装</h4><p>手动安装比较麻烦，如果apt安装无问题，则不需要手动安装。手动安装流程如下：</p>
+<h5 id="下载安装文件"><a href="#下载安装文件" class="headerlink" title="下载安装文件"></a>下载安装文件</h5><p>首先需要安装显卡对应的驱动，前往Nvidia官网：<a href="https://www.nvidia.cn/Download/index.aspx?lang=cn" target="_blank" rel="noopener">https://www.nvidia.cn/Download/index.aspx?lang=cn</a> ，根据自己的操作系统、显卡信息手动选择对应的选项，然后点击搜索，确认无误后点击下载。</p>
+<p>此处下载到的安装文件是：NVIDIA-Linux-x86_64-384.111.run</p>
+<h5 id="卸载原有驱动"><a href="#卸载原有驱动" class="headerlink" title="卸载原有驱动"></a>卸载原有驱动</h5><p>如果原驱动是用apt-get安装的，卸载命令：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get remove --purge nvidia*</span><br></pre></td></tr></table></figure></p>
+<p>如果原驱动是用runfile安装的，就用–uninstall命令卸载:<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo chmod +x *.run</span><br><span class="line">sudo ./NVIDIA-Linux-x86_64-384.59.run --uninstall</span><br></pre></td></tr></table></figure></p>
+<h5 id="禁用nouveau驱动"><a href="#禁用nouveau驱动" class="headerlink" title="禁用nouveau驱动"></a>禁用nouveau驱动</h5><p>执行：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsmod | grep nouveau</span><br></pre></td></tr></table></figure></p>
+<p>如果没有屏幕输出，说明nouveau驱动没有启用，可以忽略以下禁用nouveau步骤。</p>
+<p>创建或更新blacklist-nouveau.conf，有的教程中会更新blacklist.conf<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo vi /etc/modprobe.d/blacklist-nouveau.conf</span><br><span class="line">or</span><br><span class="line">sudo vi /etc/modprobe.d/blacklist.conf</span><br></pre></td></tr></table></figure></p>
+<p>在文本最后添加：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">blacklist nouveau</span><br><span class="line">options nouveau modeset=0</span><br></pre></td></tr></table></figure></p>
+<p>然后执行：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo update-initramfs -u</span><br></pre></td></tr></table></figure></p>
+<p>重新生成 kernel initramfs</p>
+<p>重启后，执行：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsmod | grep nouveau</span><br></pre></td></tr></table></figure></p>
+<p>如果没有屏幕输出，说明禁用nouveau成功。</p>
+<h5 id="禁用X-Window服务"><a href="#禁用X-Window服务" class="headerlink" title="禁用X-Window服务"></a>禁用X-Window服务</h5><p>执行命令：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service lightdm stop</span><br></pre></td></tr></table></figure></p>
+<p>这会关闭图形界面，按Ctrl-Alt+F1进入命令行界面，输入用户名和密码登录即可。</p>
+<p>在命令行输入：<code>sudo service lightdm start</code>，然后按Ctrl-Alt+F7即可恢复到图形界面。</p>
+<h5 id="安装下载的驱动文件"><a href="#安装下载的驱动文件" class="headerlink" title="安装下载的驱动文件"></a>安装下载的驱动文件</h5><p>给驱动run文件赋予执行权限，然后安装：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo chmod +x NVIDIA-Linux-x86_64-384.111.run</span><br><span class="line">sudo ./NVIDIA-Linux-x86_64-384.111.run –no-opengl-files</span><br></pre></td></tr></table></figure></p>
+<h5 id="驱动测试："><a href="#驱动测试：" class="headerlink" title="驱动测试："></a>驱动测试：</h5><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvidia-smi</span><br></pre></td></tr></table></figure>
+<p>若列出GPU的信息列表，表示驱动安装成功。</p>
+<h3 id="2-CUDA-安装"><a href="#2-CUDA-安装" class="headerlink" title="2. CUDA 安装"></a>2. CUDA 安装</h3><p>CUDA 官方安装指南见：<a href="https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html" target="_blank" rel="noopener">https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html</a></p>
+<h4 id="下载安装文件-1"><a href="#下载安装文件-1" class="headerlink" title="下载安装文件"></a>下载安装文件</h4><p>前往nvidia开发者网站（<a href="https://developer.nvidia.com/nvidia-drive-downloads" target="_blank" rel="noopener">https://developer.nvidia.com/nvidia-drive-downloads</a> ）下载CUDA安装文件，需要用邮箱注册、激活账户后才可以下载。</p>
+<p>这里下载的是 <code>cuda_9.0.176_384.81_linux-run</code> ，当然也可以选择其他版本，但是需要保证上一步所安装的驱动满足cuda对应版本的要求，不然会报错，具体要求见：<a href="https://github.com/NVIDIA/nvidia-docker/wiki/CUDA#requirements。" target="_blank" rel="noopener">https://github.com/NVIDIA/nvidia-docker/wiki/CUDA#requirements。</a></p>
+<h4 id="执行安装"><a href="#执行安装" class="headerlink" title="执行安装"></a>执行安装</h4><p>下载之后执行安装：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo sh cuda_9.0.176_384.81_linux-run</span><br></pre></td></tr></table></figure></p>
+<p>运行之后会跳出readme文件，然后按住Ctrl + C跳过。然后会出现提示，对于<code>INSTALL NVIDIA Accelerates Graphics Driver for Linux-x86_6</code> 要选择<code>n</code>，因为已经安装过Driver了，此处选择不安装。其他的都接受即可。</p>
+<h4 id="CUDA-加入环境变量"><a href="#CUDA-加入环境变量" class="headerlink" title="CUDA 加入环境变量"></a>CUDA 加入环境变量</h4><p>打开环境变量配置文件<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi ~/.bash_profile</span><br></pre></td></tr></table></figure></p>
+<p>将下列内容追加到文件末尾：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> LD_LIBRARY_PATH=<span class="string">"<span class="variable">$LD_LIBRARY_PATH</span>:/usr/local/cuda/lib64:/usr/local/cuda/extras/CUPTI/lib64"</span></span><br><span class="line"><span class="built_in">export</span> CUDA_HOME=/usr/<span class="built_in">local</span>/cuda</span><br></pre></td></tr></table></figure></p>
+<p>执行以下命令使得环境变量生效：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> ~/.bash_profile</span><br></pre></td></tr></table></figure></p>
+<h4 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h4><p>安装完成，进入Samples目录，进入<code>$PATH/NVIDIA_CUDA-9.0_Samples/1_Utilities/deviceQuery/</code>，输入<code>make</code>进行编译，然后<code>./deviceQuery</code>测试安装结果，如果最后输出<code>Result = PASS</code>，表示测试通过，如下所示：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">./deviceQuery Starting...</span><br><span class="line"></span><br><span class="line"> CUDA Device Query (Runtime API) version (CUDART static linking)</span><br><span class="line"></span><br><span class="line">Detected 1 CUDA Capable device(s)</span><br><span class="line"></span><br><span class="line">Device 0: <span class="string">"GeForce GTX 1070"</span></span><br><span class="line">  CUDA Driver Version / Runtime Version          9.0 / 9.0</span><br><span class="line">  CUDA Capability Major/Minor version number:    6.1</span><br><span class="line">  Total amount of global memory:                 8114 MBytes (8507752448 bytes)</span><br><span class="line">  (15) Multiprocessors, (128) CUDA Cores/MP:     1920 CUDA Cores</span><br><span class="line">  GPU Max Clock rate:                            1683 MHz (1.68 GHz)</span><br><span class="line">  Memory Clock rate:                             4004 Mhz</span><br><span class="line">  Memory Bus Width:                              256-bit</span><br><span class="line">  L2 Cache Size:                                 2097152 bytes</span><br><span class="line">  Maximum Texture Dimension Size (x,y,z)         1D=(131072), 2D=(131072, 65536), 3D=(16384, 16384, 16384)</span><br><span class="line">  Maximum Layered 1D Texture Size, (num) layers  1D=(32768), 2048 layers</span><br><span class="line">  Maximum Layered 2D Texture Size, (num) layers  2D=(32768, 32768), 2048 layers</span><br><span class="line">  Total amount of constant memory:               65536 bytes</span><br><span class="line">  Total amount of shared memory per block:       49152 bytes</span><br><span class="line">  Total number of registers available per block: 65536</span><br><span class="line">  Warp size:                                     32</span><br><span class="line">  Maximum number of threads per multiprocessor:  2048</span><br><span class="line">  Maximum number of threads per block:           1024</span><br><span class="line">  Max dimension size of a thread block (x,y,z): (1024, 1024, 64)</span><br><span class="line">  Max dimension size of a grid size    (x,y,z): (2147483647, 65535, 65535)</span><br><span class="line">  Maximum memory pitch:                          2147483647 bytes</span><br><span class="line">  Texture alignment:                             512 bytes</span><br><span class="line">  Concurrent copy and kernel execution:          Yes with 2 copy engine(s)</span><br><span class="line">  Run time <span class="built_in">limit</span> on kernels:                     Yes</span><br><span class="line">  Integrated GPU sharing Host Memory:            No</span><br><span class="line">  Support host page-locked memory mapping:       Yes</span><br><span class="line">  Alignment requirement <span class="keyword">for</span> Surfaces:            Yes</span><br><span class="line">  Device has ECC support:                        Disabled</span><br><span class="line">  Device supports Unified Addressing (UVA):      Yes</span><br><span class="line">  Supports Cooperative Kernel Launch:            Yes</span><br><span class="line">  Supports MultiDevice Co-op Kernel Launch:      Yes</span><br><span class="line">  Device PCI Domain ID / Bus ID / location ID:   0 / 1 / 0</span><br><span class="line">  Compute Mode:</span><br><span class="line">     &lt; Default (multiple host threads can use ::cudaSetDevice() with device simultaneously) &gt;</span><br><span class="line"></span><br><span class="line">deviceQuery, CUDA Driver = CUDART, CUDA Driver Version = 9.0, CUDA Runtime Version = 9.0, NumDevs = 1</span><br><span class="line">Result = PASS</span><br></pre></td></tr></table></figure></p>
+<h3 id="3-cuDNN-安装"><a href="#3-cuDNN-安装" class="headerlink" title="3. cuDNN 安装"></a>3. cuDNN 安装</h3><p>TensorFlow的运行需要cuDNN库的支持， cuDNN 的安装可以参考官方指南：<a href="https://docs.nvidia.com/deeplearning/sdk/cudnn-install/index.html" target="_blank" rel="noopener">https://docs.nvidia.com/deeplearning/sdk/cudnn-install/index.html</a></p>
+<p>简单来说，cuDNN需要下载两个文件，一个是运行库，一个是开发者库，下载地址：<a href="https://developer.nvidia.com/rdp/form/cudnn-download-survey" target="_blank" rel="noopener">https://developer.nvidia.com/rdp/form/cudnn-download-survey</a> 。</p>
+<p>下载好之后，执行下列命令进行安装：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo dpkg -i libcudnn7_7.0.3.11-1+cuda9.0_amd64.deb</span><br><span class="line">sudo dpkg -i libcudnn7-dev_7.0.3.11-1+cuda9.0_amd64.deb</span><br></pre></td></tr></table></figure></p>
+<h3 id="4-TensorFlow-GPU-安装"><a href="#4-TensorFlow-GPU-安装" class="headerlink" title="4. TensorFlow-GPU 安装"></a>4. TensorFlow-GPU 安装</h3><p>以上环境都配置好之后，TensorFlow的安装就简单多了，官方指南：<a href="https://www.tensorflow.org/install/install_linux?hl=zh-cn" target="_blank" rel="noopener">https://www.tensorflow.org/install/install_linux?hl=zh-cn</a></p>
+<p>这里贴出pip3安装命令：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip3 install tensorflow-gpu</span><br></pre></td></tr></table></figure></p>
+<h3 id="5-验证安装"><a href="#5-验证安装" class="headerlink" title="5. 验证安装"></a>5. 验证安装</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">root@desk:/home/<span class="comment"># python3</span></span><br><span class="line">Python 3.5.2 (default, Nov 23 2017, 16:37:01)</span><br><span class="line">[GCC 5.4.0 20160609] on linux</span><br><span class="line">Type <span class="string">"help"</span>, <span class="string">"copyright"</span>, <span class="string">"credits"</span> or <span class="string">"license"</span> <span class="keyword">for</span> more information.</span><br><span class="line">&gt;&gt;&gt; import tensorflow as tf</span><br><span class="line">&gt;&gt;&gt; tf.__version__</span><br><span class="line"><span class="string">'1.9.0'</span></span><br><span class="line">&gt;&gt;&gt; hello = tf.constant(<span class="string">'Hello, TensorFlow!'</span>)</span><br><span class="line">&gt;&gt;&gt; sess = tf.Session()</span><br><span class="line">&gt;&gt;&gt; <span class="built_in">print</span>(sess.run(hello))</span><br><span class="line">b<span class="string">'Hello, TensorFlow!'</span></span><br></pre></td></tr></table></figure>
+<h3 id="6-问题及tips"><a href="#6-问题及tips" class="headerlink" title="6. 问题及tips"></a>6. 问题及tips</h3><h4 id="CUDA-driver-version-is-insufficient-for-CUDA-runtime-version"><a href="#CUDA-driver-version-is-insufficient-for-CUDA-runtime-version" class="headerlink" title="CUDA driver version is insufficient for CUDA runtime version"></a>CUDA driver version is insufficient for CUDA runtime version</h4><p>不同版本的CUDA对显卡驱动要求不一样，见下表：</p>
+<p>CUDA toolkit version    Driver version  GPU architecture<br>6.5 &gt;= 340.29   &gt;= 2.0 (Fermi)<br>7.0 &gt;= 346.46   &gt;= 2.0 (Fermi)<br>7.5 &gt;= 352.39   &gt;= 2.0 (Fermi)<br>8.0 == 361.93 or &gt;= 375.51  == 6.0 (P100)<br>8.0 &gt;= 367.48   &gt;= 2.0 (Fermi)<br>9.0 &gt;= 384.81   &gt;= 3.0 (Kepler)<br>9.1 &gt;= 387.26   &gt;= 3.0 (Kepler)</p>
+<p>来源：<a href="https://github.com/NVIDIA/nvidia-docker/wiki/CUDA#requirements" target="_blank" rel="noopener">https://github.com/NVIDIA/nvidia-docker/wiki/CUDA#requirements</a></p>
+<h4 id="libcudnn-so-7-cannot-open-shared-object-file-No-such-file-or-directory"><a href="#libcudnn-so-7-cannot-open-shared-object-file-No-such-file-or-directory" class="headerlink" title="libcudnn.so.7: cannot open shared object file: No such file or directory"></a>libcudnn.so.7: cannot open shared object file: No such file or directory</h4><p>没有安装cudnn，安装cudnn即可。</p>
+<h4 id="查看GPU使用情况"><a href="#查看GPU使用情况" class="headerlink" title="查看GPU使用情况"></a>查看GPU使用情况</h4><p>nvidia-smi</p>
+<h4 id="解除指定进程的GPU占用"><a href="#解除指定进程的GPU占用" class="headerlink" title="解除指定进程的GPU占用"></a>解除指定进程的GPU占用</h4><p>kill -9 PID</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ol>
+<li>Tensorflow基础知识—-ubuntu下安装安装CUDA、cuDNN和tensotflow-gpu版本流程和问题总结：<a href="https://sthsf.github.io/wiki/Algorithm/DeepLearning/Tensorflow%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Tensorflow%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86---Tensorflow-gpu%E7%89%88%E6%9C%AC%E5%AE%89%E8%A3%85.html" target="_blank" rel="noopener">https://sthsf.github.io/wiki/Algorithm/DeepLearning/Tensorflow%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Tensorflow%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86---Tensorflow-gpu%E7%89%88%E6%9C%AC%E5%AE%89%E8%A3%85.html</a></li>
+<li>CUDA 官方安装指南：<a href="https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html" target="_blank" rel="noopener">https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html</a></li>
+<li>cudnn官方安装指南：<a href="https://docs.nvidia.com/deeplearning/sdk/cudnn-install/index.html" target="_blank" rel="noopener">https://docs.nvidia.com/deeplearning/sdk/cudnn-install/index.html</a></li>
+<li>tensorflow官方安装指南：<a href="https://www.tensorflow.org/install/install_linux?hl=zh-cn" target="_blank" rel="noopener">https://www.tensorflow.org/install/install_linux?hl=zh-cn</a></li>
+<li>CUDA对驱动版本要求：<a href="https://github.com/NVIDIA/nvidia-docker/wiki/CUDA#requirements" target="_blank" rel="noopener">https://github.com/NVIDIA/nvidia-docker/wiki/CUDA#requirements</a></li>
+</ol>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2019年04月19日 21:37</p>
+        <p>原始链接： <a class="post-url" href="/2018/07/25/tensorflow-gpu/" title="Ubuntu 16.04 下 TensorFlow-gpu 环境配置与安装">http://andersjing.com/2018/07/25/tensorflow-gpu/</a></p>
+        <footer>
+            <a href="http://andersjing.com">
+                <img src="/images/logo.png" alt="Anders Jing">
+                Anders Jing
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+        
+            
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;">赏</a>
+</div>
+
+<div id="reward" class="post-modal reward-lay">
+    <a class="close" href="javascript:;" id="reward-close">×</a>
+    <span class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        请打赏~
+        <i class="icon icon-quote-right"></i>
+    </span>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/images/wechat_code.jpg" alt="打赏二维码">
+        </div>
+        <div class="reward-select">
+            
+            <label class="reward-select-item checked" data-id="wechat" data-wechat="/images/wechat_code.jpg">
+                <img class="reward-select-item-wechat" src="/images/wechat.png" alt="微信">
+            </label>
+            
+            
+        </div>
+    </div>
+</div>
+
+
+        
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://andersjing.com/2018/07/25/tensorflow-gpu/&title=《Ubuntu 16.04 下 TensorFlow-gpu 环境配置与安装》 — Anders Jing's site&pic=/images/banner.jpg" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://andersjing.com/2018/07/25/tensorflow-gpu/&title=《Ubuntu 16.04 下 TensorFlow-gpu 环境配置与安装》 — Anders Jing's site&source=this is the site of AndersJing." data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://andersjing.com/2018/07/25/tensorflow-gpu/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Ubuntu 16.04 下 TensorFlow-gpu 环境配置与安装》 — Anders Jing's site&url=http://andersjing.com/2018/07/25/tensorflow-gpu/&via=http://andersjing.com" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://andersjing.com/2018/07/25/tensorflow-gpu/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://andersjing.com/2018/07/25/tensorflow-gpu/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/tensorflow/" class="color1">tensorflow</a>
+      
+    <a href="/tags/cuda/" class="color5">cuda</a>
+      
+    <a href="/tags/GPU/" class="color4">GPU</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#前言"><span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#环境介绍"><span class="post-toc-text">环境介绍</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-显卡驱动安装"><span class="post-toc-text">1. 显卡驱动安装</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#apt-安装"><span class="post-toc-text">apt 安装</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#手动安装"><span class="post-toc-text">手动安装</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#下载安装文件"><span class="post-toc-text">下载安装文件</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#卸载原有驱动"><span class="post-toc-text">卸载原有驱动</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#禁用nouveau驱动"><span class="post-toc-text">禁用nouveau驱动</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#禁用X-Window服务"><span class="post-toc-text">禁用X-Window服务</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#安装下载的驱动文件"><span class="post-toc-text">安装下载的驱动文件</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#驱动测试："><span class="post-toc-text">驱动测试：</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-CUDA-安装"><span class="post-toc-text">2. CUDA 安装</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#下载安装文件-1"><span class="post-toc-text">下载安装文件</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#执行安装"><span class="post-toc-text">执行安装</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#CUDA-加入环境变量"><span class="post-toc-text">CUDA 加入环境变量</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#测试"><span class="post-toc-text">测试</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-cuDNN-安装"><span class="post-toc-text">3. cuDNN 安装</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4-TensorFlow-GPU-安装"><span class="post-toc-text">4. TensorFlow-GPU 安装</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#5-验证安装"><span class="post-toc-text">5. 验证安装</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#6-问题及tips"><span class="post-toc-text">6. 问题及tips</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#CUDA-driver-version-is-insufficient-for-CUDA-runtime-version"><span class="post-toc-text">CUDA driver version is insufficient for CUDA runtime version</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#libcudnn-so-7-cannot-open-shared-object-file-No-such-file-or-directory"><span class="post-toc-text">libcudnn.so.7: cannot open shared object file: No such file or directory</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#查看GPU使用情况"><span class="post-toc-text">查看GPU使用情况</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#解除指定进程的GPU占用"><span class="post-toc-text">解除指定进程的GPU占用</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#参考"><span class="post-toc-text">参考</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/2018/07/26/ssh-nopass-login/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          Linux 主机之间 ssh 免密码登录
+        
+      </span>
+    </a>
+  
+  
+    <a href="/2018/07/06/AngularJS/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">Angular 之顶层理解</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2019 Anders Jing<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "http://andersjing.com",
+      animate: false,
+      isHome: false,
+      share: true,
+      reward: 1
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Bioinformatics/">Bioinformatics</a><a class="category-link" href="/categories/Linux/">Linux</a><a class="category-link" href="/categories/Machine-Learning/">Machine Learning</a><a class="category-link" href="/categories/Python/">Python</a><a class="category-link" href="/categories/QT/">QT</a><a class="category-link" href="/categories/deep-learning/">deep learning</a><a class="category-link" href="/categories/hexo/">hexo</a><a class="category-link" href="/categories/linux/">linux</a><a class="category-link" href="/categories/uncategorized/">uncategorized</a><a class="category-link" href="/categories/前端/">前端</a><a class="category-link" href="/categories/读书笔记/">读书笔记</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/Anaconda/" style="font-size: 10px;">Anaconda</a> <a href="/tags/Angular/" style="font-size: 10px;">Angular</a> <a href="/tags/Blast/" style="font-size: 10px;">Blast</a> <a href="/tags/CentOS/" style="font-size: 10px;">CentOS</a> <a href="/tags/GPU/" style="font-size: 10px;">GPU</a> <a href="/tags/HMM/" style="font-size: 10px;">HMM</a> <a href="/tags/Hexo/" style="font-size: 14px;">Hexo</a> <a href="/tags/Machine-Learning/" style="font-size: 10px;">Machine Learning</a> <a href="/tags/Needleman-Wunsch/" style="font-size: 10px;">Needleman-Wunsch</a> <a href="/tags/PSI-Blast/" style="font-size: 10px;">PSI-Blast</a> <a href="/tags/PSSM/" style="font-size: 10px;">PSSM</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/Rank/" style="font-size: 10px;">Rank</a> <a href="/tags/Smith-Waterman/" style="font-size: 10px;">Smith-Waterman</a> <a href="/tags/Theano/" style="font-size: 10px;">Theano</a> <a href="/tags/centos/" style="font-size: 16px;">centos</a> <a href="/tags/cuda/" style="font-size: 10px;">cuda</a> <a href="/tags/disk/" style="font-size: 10px;">disk</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/glibc/" style="font-size: 10px;">glibc</a> <a href="/tags/libstdc/" style="font-size: 10px;">libstdc</a> <a href="/tags/linux/" style="font-size: 18px;">linux</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/math/" style="font-size: 10px;">math</a> <a href="/tags/oh-my-zsh/" style="font-size: 10px;">oh my zsh</a> <a href="/tags/python/" style="font-size: 14px;">python</a> <a href="/tags/qml/" style="font-size: 10px;">qml</a> <a href="/tags/qt/" style="font-size: 10px;">qt</a> <a href="/tags/scipy/" style="font-size: 10px;">scipy</a> <a href="/tags/scrapy/" style="font-size: 10px;">scrapy</a> <a href="/tags/screen/" style="font-size: 10px;">screen</a> <a href="/tags/sklearn/" style="font-size: 10px;">sklearn</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/tar/" style="font-size: 10px;">tar</a> <a href="/tags/tensorflow/" style="font-size: 12px;">tensorflow</a> <a href="/tags/web开发/" style="font-size: 10px;">web开发</a> <a href="/tags/wget/" style="font-size: 10px;">wget</a> <a href="/tags/yum/" style="font-size: 10px;">yum</a> <a href="/tags/读书笔记/" style="font-size: 20px;">读书笔记</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/Anaconda/" style="font-size: 10px;">Anaconda</a> <a href="/tags/Angular/" style="font-size: 10px;">Angular</a> <a href="/tags/Blast/" style="font-size: 10px;">Blast</a> <a href="/tags/CentOS/" style="font-size: 10px;">CentOS</a> <a href="/tags/GPU/" style="font-size: 10px;">GPU</a> <a href="/tags/HMM/" style="font-size: 10px;">HMM</a> <a href="/tags/Hexo/" style="font-size: 14px;">Hexo</a> <a href="/tags/Machine-Learning/" style="font-size: 10px;">Machine Learning</a> <a href="/tags/Needleman-Wunsch/" style="font-size: 10px;">Needleman-Wunsch</a> <a href="/tags/PSI-Blast/" style="font-size: 10px;">PSI-Blast</a> <a href="/tags/PSSM/" style="font-size: 10px;">PSSM</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/Rank/" style="font-size: 10px;">Rank</a> <a href="/tags/Smith-Waterman/" style="font-size: 10px;">Smith-Waterman</a> <a href="/tags/Theano/" style="font-size: 10px;">Theano</a> <a href="/tags/centos/" style="font-size: 16px;">centos</a> <a href="/tags/cuda/" style="font-size: 10px;">cuda</a> <a href="/tags/disk/" style="font-size: 10px;">disk</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/glibc/" style="font-size: 10px;">glibc</a> <a href="/tags/libstdc/" style="font-size: 10px;">libstdc</a> <a href="/tags/linux/" style="font-size: 18px;">linux</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/math/" style="font-size: 10px;">math</a> <a href="/tags/oh-my-zsh/" style="font-size: 10px;">oh my zsh</a> <a href="/tags/python/" style="font-size: 14px;">python</a> <a href="/tags/qml/" style="font-size: 10px;">qml</a> <a href="/tags/qt/" style="font-size: 10px;">qt</a> <a href="/tags/scipy/" style="font-size: 10px;">scipy</a> <a href="/tags/scrapy/" style="font-size: 10px;">scrapy</a> <a href="/tags/screen/" style="font-size: 10px;">screen</a> <a href="/tags/sklearn/" style="font-size: 10px;">sklearn</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/tar/" style="font-size: 10px;">tar</a> <a href="/tags/tensorflow/" style="font-size: 12px;">tensorflow</a> <a href="/tags/web开发/" style="font-size: 10px;">web开发</a> <a href="/tags/wget/" style="font-size: 10px;">wget</a> <a href="/tags/yum/" style="font-size: 10px;">yum</a> <a href="/tags/读书笔记/" style="font-size: 20px;">读书笔记</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+
+
+
+  <script src="/js/pop-img.js"></script>
+  <script>
+     $(".article-entry p img").popImg();
+  </script>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>

@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  <title>生物序列比对算法简述 | Anders Jing&#39;s site</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="AndersJing, AndersJing's Site">
+  
+  <meta name="description" content="在生物信息学研究中，序列比对是一个非常基础的问题，在很多研究中都会用到。本文对其中涉及到的全局比对（Needleman-Wunsch算法）、局部比对算法（Smith-Waterman 算法）、Blast、PSI-Blast、PSSM、HMM的原理进行总结和介绍。 Needleman-Wunsch算法——基于动态规划的序列全局比对Needleman-Wunsch算法是序列全局比对的核心算法，具体实现">
+<meta name="keywords" content="Needleman-Wunsch,Smith-Waterman,Blast,PSI-Blast,PSSM,HMM">
+<meta property="og:type" content="article">
+<meta property="og:title" content="生物序列比对算法简述">
+<meta property="og:url" content="http://andersjing.com/2018/11/25/2018-11-25-sequence-alignment/index.html">
+<meta property="og:site_name" content="Anders Jing&#39;s site">
+<meta property="og:description" content="在生物信息学研究中，序列比对是一个非常基础的问题，在很多研究中都会用到。本文对其中涉及到的全局比对（Needleman-Wunsch算法）、局部比对算法（Smith-Waterman 算法）、Blast、PSI-Blast、PSSM、HMM的原理进行总结和介绍。 Needleman-Wunsch算法——基于动态规划的序列全局比对Needleman-Wunsch算法是序列全局比对的核心算法，具体实现">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://andersjing.com/images/posts/2018-11-25/score.png">
+<meta property="og:image" content="http://andersjing.com/images/posts/2018-11-25/blank.png">
+<meta property="og:image" content="http://andersjing.com/images/posts/2018-11-25/nw-score.png">
+<meta property="og:image" content="http://andersjing.com/images/posts/2018-11-25/nw-back.png">
+<meta property="og:image" content="http://andersjing.com/images/posts/2018-11-25/sw-score.png">
+<meta property="og:image" content="http://andersjing.com/images/posts/2018-11-25/sw-back.png">
+<meta property="og:image" content="http://andersjing.com/images/posts/2018-11-25/profile.png">
+<meta property="og:image" content="http://andersjing.com/images/posts/2018-11-25/hmm-msa.png">
+<meta property="og:image" content="http://andersjing.com/images/posts/2018-11-25/hmm-basic.png">
+<meta property="og:image" content="http://andersjing.com/images/posts/2018-11-25/hmm-insert.png">
+<meta property="og:image" content="http://andersjing.com/images/posts/2018-11-25/hmm-delete.png">
+<meta property="og:image" content="http://andersjing.com/images/posts/2018-11-25/hmm-all.png">
+<meta property="og:updated_time" content="2019-04-20T02:37:02.906Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="生物序列比对算法简述">
+<meta name="twitter:description" content="在生物信息学研究中，序列比对是一个非常基础的问题，在很多研究中都会用到。本文对其中涉及到的全局比对（Needleman-Wunsch算法）、局部比对算法（Smith-Waterman 算法）、Blast、PSI-Blast、PSSM、HMM的原理进行总结和介绍。 Needleman-Wunsch算法——基于动态规划的序列全局比对Needleman-Wunsch算法是序列全局比对的核心算法，具体实现">
+<meta name="twitter:image" content="http://andersjing.com/images/posts/2018-11-25/score.png">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+  
+  
+
+</head>
+</html>
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">AndersJing&#39;s Site</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        AndersJing&#39;s Site
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        AndersJing 的个人站点
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="AndersJing" target="_blank" href="//AndersJing.com">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com/AndersJing">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-2018-11-25-sequence-alignment" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      生物序列比对算法简述
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/Bioinformatics/">Bioinformatics</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2018-11-25
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <p>在生物信息学研究中，序列比对是一个非常基础的问题，在很多研究中都会用到。本文对其中涉及到的全局比对（Needleman-Wunsch算法）、局部比对算法（Smith-Waterman 算法）、Blast、PSI-Blast、PSSM、HMM的原理进行总结和介绍。</p>
+<h3 id="Needleman-Wunsch算法——基于动态规划的序列全局比对"><a href="#Needleman-Wunsch算法——基于动态规划的序列全局比对" class="headerlink" title="Needleman-Wunsch算法——基于动态规划的序列全局比对"></a>Needleman-Wunsch算法——基于动态规划的序列全局比对</h3><p>Needleman-Wunsch算法是序列全局比对的核心算法，具体实现如下。</p>
+<h4 id="打分表"><a href="#打分表" class="headerlink" title="打分表"></a>打分表</h4><p>对于不完全匹配的序列，会存在空位或者不匹配的位点，打分表是表示一种氨基酸（或核苷酸）变为另外一种氨基酸（核苷酸）的打分，对于空位则要罚分，最终综合所有位点的打分结果，获得两个序列的匹配分值，分值越高的表示两个序列相似度越高。</p>
+<p>对于蛋白质序列，常用的打分表有PAM250和BLOSUM62，其中PAM250是基于高同源序列构建，BLOSUM62基于远程同源序列构建，因此寻找远程同源序列一般用BLOSUM62。</p>
+<h4 id="计算步骤"><a href="#计算步骤" class="headerlink" title="计算步骤"></a>计算步骤</h4><p>为便于计算和表示，以核苷酸序列为例。</p>
+<h5 id="1-定义打分表"><a href="#1-定义打分表" class="headerlink" title="1. 定义打分表"></a>1. 定义打分表</h5><p><img src="/images/posts/2018-11-25/score.png" width="40%"></p>
+<p>空位罚分为 -5。</p>
+<h5 id="2-待比对序列的表示"><a href="#2-待比对序列的表示" class="headerlink" title="2. 待比对序列的表示"></a>2. 待比对序列的表示</h5><p>对于长度为3的两个序列“AAG”和“AGC”，设计一个5*5的表用于序列比对。</p>
+<p><img src="/images/posts/2018-11-25/blank.png" width="40%"></p>
+<h5 id="3-打分规则"><a href="#3-打分规则" class="headerlink" title="3. 打分规则"></a>3. 打分规则</h5><p>对于表格中的空格， 依据下列打分规则进行填充：</p>
+<script type="math/tex; mode=display">f(0,0) = 0</script><script type="math/tex; mode=display">
+f(i,j) = max \left\{\begin{matrix}
+ f(i-1,j-1)+s(x_i,y_j) \\ 
+ f(i-1,j)+d\\ 
+ f(i,j-1)+d
+\end{matrix}\right.</script><p>其中，$s(x_i,y_j)$表示打分表中对应氨基酸替代情况的打分。</p>
+<p>(1): $f(i-1,j-1)+s(x_i,y_j)$ 表示 $x_i$ 比对到 $y_j$</p>
+<p>(2): $f(i-1,j)+d$ 表示 $x_i$ 比对到缺失“-”</p>
+<p>(3): $f(i,j-1)+d$ 表示 $y_j$ 比对到缺失“-”</p>
+<h5 id="4-打分结果"><a href="#4-打分结果" class="headerlink" title="4. 打分结果"></a>4. 打分结果</h5><p>按照上一步的打分结果，整个比对的打分结果为：</p>
+<p><img src="/images/posts/2018-11-25/nw-score.png" width="40%"></p>
+<h5 id="5-回溯获得比对结果"><a href="#5-回溯获得比对结果" class="headerlink" title="5. 回溯获得比对结果"></a>5. 回溯获得比对结果</h5><p>根据上述打分结果进行回溯，即可得到比对结果：</p>
+<p><img src="/images/posts/2018-11-25/nw-back.png" width="40%"></p>
+<p>这里得到两个得分为“-6”的全局比对结果，分别为：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">AAG-</span><br><span class="line">-AGC</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">AAG-</span><br><span class="line">A-GC</span><br></pre></td></tr></table></figure>
+<p>这两个即最好的全局比对，而得到为“-6”。</p>
+<h3 id="Smith-Waterman-算法——基于动态规划的序列局部比对"><a href="#Smith-Waterman-算法——基于动态规划的序列局部比对" class="headerlink" title="Smith-Waterman 算法——基于动态规划的序列局部比对"></a>Smith-Waterman 算法——基于动态规划的序列局部比对</h3><p>Needleman-Wunsch算法是对两个目标序列进行全局比对，但是局部比对也非常重要，因此后来在其基础上，Smith和Waterman提出了Smith-Waterman 算法。</p>
+<h5 id="1-打分规则的修改"><a href="#1-打分规则的修改" class="headerlink" title="1. 打分规则的修改"></a>1. 打分规则的修改</h5><p>Smith-Waterman 算法对Needleman-Wunsch算法的打分规则做了改进，使之适用于局部序列比对，具体为：</p>
+<script type="math/tex; mode=display">f(0,0) = 0</script><script type="math/tex; mode=display">
+f(i,j) = max \left\{\begin{matrix}
+ f(i-1,j-1)+s(x_i,y_j) \\ 
+ f(i-1,j)+d \\ 
+ f(i,j-1)+d \\ 
+ 0
+\end{matrix}\right.</script><h5 id="2-打分结果"><a href="#2-打分结果" class="headerlink" title="2. 打分结果"></a>2. 打分结果</h5><p><img src="/images/posts/2018-11-25/sw-score.png" width="60%"></p>
+<p>相当于将其中负值的打分情况终止了，重新开始比对，获得了局部比对。</p>
+<h5 id="3-回溯结果"><a href="#3-回溯结果" class="headerlink" title="3. 回溯结果"></a>3. 回溯结果</h5><p><img src="/images/posts/2018-11-25/sw-back.png" width="60%"></p>
+<p>由此获得了两个局部比对：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">AG</span><br><span class="line">AG</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">A</span><br><span class="line">A</span><br></pre></td></tr></table></figure>
+<h3 id="BLAST-算法——启发式近似算法"><a href="#BLAST-算法——启发式近似算法" class="headerlink" title="BLAST 算法——启发式近似算法"></a>BLAST 算法——启发式近似算法</h3><p>BLAST是速度比Smith-Waterman快50倍，不如Smith-Waterman算法精确的序列局部比对算法。具体流程如下：</p>
+<h5 id="1-序列预处理"><a href="#1-序列预处理" class="headerlink" title="1. 序列预处理"></a>1. 序列预处理</h5><p>移除待比对序列的低复杂度区域或重复序列。</p>
+<h5 id="2-构建待查询的K-元-词表"><a href="#2-构建待查询的K-元-词表" class="headerlink" title="2. 构建待查询的K-元 词表"></a>2. 构建待查询的K-元 词表</h5><p>对于待比对序列，从序列第一个元素开始，对每个位置开始的连续K个字母作为一个词（word），将其key和位置存入hash表。</p>
+<p>对于数据库中的序列做同样的“分词”工作。</p>
+<p>对于DNA序列，通常选择长度为11的核苷酸链，对于蛋白质序列，通常选择3个氨基酸作为一个词。</p>
+<h5 id="3-比对打分"><a href="#3-比对打分" class="headerlink" title="3. 比对打分"></a>3. 比对打分</h5><p>根据打分矩阵为所有待比对序列的“word”和数据库中的“word”的比对打分，找出所有打分高于T的比对，作为“种子”（seed）。</p>
+<h5 id="4-Seed优化"><a href="#4-Seed优化" class="headerlink" title="4. Seed优化"></a>4. Seed优化</h5><p>减少seed的数目可以减少下一步extend的消耗，可以将距离相近的seed合并为一个seed。</p>
+<h5 id="5-基于“种子”扩展（extend）"><a href="#5-基于“种子”扩展（extend）" class="headerlink" title="5. 基于“种子”扩展（extend）"></a>5. 基于“种子”扩展（extend）</h5><p>对于每一对选择出来的种子，将其向两边延伸，使其在尽可能长的距离得到尽可能多的分数。具体方法是逐渐向两边扩展，规定常数D，在扩展到分数为HighestScore-D时停止，如果最终得分大于得分阈值S，则将其设为高分区域HSP（high-scoring segment pair）。</p>
+<h5 id="6-合并相邻的或距离较近的HSP"><a href="#6-合并相邻的或距离较近的HSP" class="headerlink" title="6. 合并相邻的或距离较近的HSP"></a>6. 合并相邻的或距离较近的HSP</h5><h5 id="7-Smith-Waterman局部比对结果"><a href="#7-Smith-Waterman局部比对结果" class="headerlink" title="7. Smith-Waterman局部比对结果"></a>7. Smith-Waterman局部比对结果</h5><p>对于每部分HSP使用Smith-Watermans算法进行局部比对，为每部分打分，作为最终结果。</p>
+<h3 id="PSI-BLAST-算法"><a href="#PSI-BLAST-算法" class="headerlink" title="PSI-BLAST 算法"></a>PSI-BLAST 算法</h3><h5 id="1-初始序列比对"><a href="#1-初始序列比对" class="headerlink" title="1. 初始序列比对"></a>1. 初始序列比对</h5><p>用初始的一条蛋白质序列作为query，用BLAST基于BLOSUM62在蛋白质数据库中搜索，获得初始结果</p>
+<h5 id="2-构建PSSM"><a href="#2-构建PSSM" class="headerlink" title="2. 构建PSSM"></a>2. 构建PSSM</h5><p>基于初始的多序列比对（MSA，multiple sequence alignments）结果构建初始profile，即PSSM（position-specific score matrice）</p>
+<h5 id="3-基于PSSM的再搜索"><a href="#3-基于PSSM的再搜索" class="headerlink" title="3. 基于PSSM的再搜索"></a>3. 基于PSSM的再搜索</h5><p>用PSSM作为新的打分矩阵，搜索数据库，发现较远的相似性序列，并给出E-value</p>
+<h5 id="4-基于PSSM的迭代搜索"><a href="#4-基于PSSM的迭代搜索" class="headerlink" title="4. 基于PSSM的迭代搜索"></a>4. 基于PSSM的迭代搜索</h5><p>根据新的MSA，构建新的PSSM，再迭代搜索过程，直到没有符合要求(E-value threshold,比如0.005,有时可放宽至0.01)的新序列，或者达到指定的迭代次数，一般为3。</p>
+<h3 id="PSSM——position-specific-score-matrice"><a href="#PSSM——position-specific-score-matrice" class="headerlink" title="PSSM——position-specific score matrice"></a>PSSM——position-specific score matrice</h3><p>PSSM是从MSA中构建的，其典型计算过程为：</p>
+<h5 id="1-计算MSA中每个位点不同氨基酸的出现次数"><a href="#1-计算MSA中每个位点不同氨基酸的出现次数" class="headerlink" title="1. 计算MSA中每个位点不同氨基酸的出现次数"></a>1. 计算MSA中每个位点不同氨基酸的出现次数</h5><p><img src="/images/posts/2018-11-25/profile.png" width="60%"></p>
+<h5 id="2-基于氨基酸次数计算频率"><a href="#2-基于氨基酸次数计算频率" class="headerlink" title="2. 基于氨基酸次数计算频率"></a>2. 基于氨基酸次数计算频率</h5><p>第1列：$f<em>{A,1} = \frac{0}{5} = 0,  f</em>{G,1} = \frac{5}{5} = 1, …$</p>
+<p>第2列：$f<em>{A,2} = \frac{0}{5} = 0,  f</em>{H,2} = \frac{5}{5} = 1, …$</p>
+<p>$… … $</p>
+<p>第15列：$f<em>{A,15} = \frac{2}{5} = 0.4,  f</em>{C,15} = \frac{1}{5} = 0.2, …$</p>
+<p>为了解决有些氨基酸类型出现为0的情况，给分子、分母增加pseudo-counts：</p>
+<p>第1列：$f<em>{A,1}^{‘} = \frac{0+1}{5+20} = 0.04,  f</em>{G,1}^{‘} = \frac{5+1}{5+20} = 0.24, …$</p>
+<p>第2列：$f<em>{A,2}^{‘} = \frac{0+1}{5+20} = 0.04,  f</em>{H,2}^{‘} = \frac{5+1}{5+20} = 0.24, …$</p>
+<p>$… … $</p>
+<p>第15列：$f<em>{A,15}^{‘} = \frac{2+1}{5+20} = 0.12,  f</em>{C,15}^{‘} = \frac{1+1}{5+20} = 0.08, …$</p>
+<h5 id="3-计算对数似然"><a href="#3-计算对数似然" class="headerlink" title="3. 计算对数似然"></a>3. 计算对数似然</h5><script type="math/tex; mode=display">S_{i,j} = log \frac{f_{i,j}^{'}}{q_{i}}</script><p>$q_{i}$为相应氨基酸类型在随机序列中出现的期望频率，比如可以取平均值，对于氨基酸为$\frac{1}{20}=0.05$，对于核苷酸为：$\frac{1}{4}=0.25$。</p>
+<h5 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h5><p>以上为典型的PSSM计算步骤，但是在具体实践上，不同的软件可能会对细节进行修改，从而得到的PSSM并不一样，如PSI-BLAST会采用BLOSUM62处理pseudo-counts问题。</p>
+<p>另外，PSSM不处理MSA中位点插入和删除的情况。</p>
+<h3 id="基于HMM的序列比对"><a href="#基于HMM的序列比对" class="headerlink" title="基于HMM的序列比对"></a>基于HMM的序列比对</h3><p>由于PSSM不能处理位点插入和删除的情况，因此后来开发了基于HMM（Hidden Markov Models）的序列比对，采用HMM对所有情况进行建模，这里对其基本原理进行介绍。</p>
+<p>下面是对于一个序列比对的示例：</p>
+<p><img src="/images/posts/2018-11-25/hmm-msa.png" width="50%"></p>
+<p>如果采用PSSM或其他类似的Profile方式，都无法对位点的插入和删除进行建模，而HMM则可以。这里不对HMM的原理进行介绍，进对其在序列比对中的应用方式进行简要介绍。</p>
+<h5 id="1-初始的HMM"><a href="#1-初始的HMM" class="headerlink" title="1. 初始的HMM"></a>1. 初始的HMM</h5><p><img src="/images/posts/2018-11-25/hmm-basic.png" width="50%"></p>
+<h5 id="2-增加对插入的处理"><a href="#2-增加对插入的处理" class="headerlink" title="2. 增加对插入的处理"></a>2. 增加对插入的处理</h5><p><img src="/images/posts/2018-11-25/hmm-insert.png" width="50%"></p>
+<h5 id="3-增加对删除的处理"><a href="#3-增加对删除的处理" class="headerlink" title="3. 增加对删除的处理"></a>3. 增加对删除的处理</h5><p><img src="/images/posts/2018-11-25/hmm-delete.png" width="50%"></p>
+<h5 id="4-完整的用于序列比对的HMM"><a href="#4-完整的用于序列比对的HMM" class="headerlink" title="4. 完整的用于序列比对的HMM"></a>4. 完整的用于序列比对的HMM</h5><p><img src="/images/posts/2018-11-25/hmm-all.png" width="50%"></p>
+<h5 id="5-HMM的表现形式"><a href="#5-HMM的表现形式" class="headerlink" title="5. HMM的表现形式"></a>5. HMM的表现形式</h5><p>最终，对于一个氨基酸位点的HMM为包含20种氨基酸和7种转移状态（M-&gt;M、M-&gt;I、M-&gt;D、I-&gt;M、I-&gt;I、D-&gt;M、D-&gt;D ）概率的数组。</p>
+<p>其中M、I、D的含义分别为，M：match，I：insertion，D:deletion。</p>
+<h3 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h3><ol>
+<li><a href="https://www.bilibili.com/video/av10042290/?p=6" target="_blank" rel="noopener">生物信息学：导论与方法(北京大学)</a></li>
+<li><a href="http://abc.cbi.pku.edu.cn/talk/blast-liu-h.pdf" target="_blank" rel="noopener">BLAST 算法</a></li>
+<li><a href="https://blog.csdn.net/huangliangbo0805/article/details/40868269" target="_blank" rel="noopener">生物序列局部比对之Blast算法</a></li>
+<li><a href="http://yangli.name/2015/11/11/20151111psiblast/" target="_blank" rel="noopener">PSI-BLAST寻找同源蛋白</a></li>
+<li><a href="https://embnet.vital-it.ch/CoursEMBnet/Pages04/slides/PSSM_HMMM.pdf" target="_blank" rel="noopener">An introduction to Patterns, Profiles, HMMs and PSI-BLAST </a></li>
+<li><a href="https://www.youtube.com/watch?v=vO_6xfLwGao" target="_blank" rel="noopener">Profile HMMs for Sequence Alignment</a></li>
+</ol>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2019年04月19日 21:37</p>
+        <p>原始链接： <a class="post-url" href="/2018/11/25/2018-11-25-sequence-alignment/" title="生物序列比对算法简述">http://andersjing.com/2018/11/25/2018-11-25-sequence-alignment/</a></p>
+        <footer>
+            <a href="http://andersjing.com">
+                <img src="/images/logo.png" alt="Anders Jing">
+                Anders Jing
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+        
+            
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;">赏</a>
+</div>
+
+<div id="reward" class="post-modal reward-lay">
+    <a class="close" href="javascript:;" id="reward-close">×</a>
+    <span class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        请打赏~
+        <i class="icon icon-quote-right"></i>
+    </span>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/images/wechat_code.jpg" alt="打赏二维码">
+        </div>
+        <div class="reward-select">
+            
+            <label class="reward-select-item checked" data-id="wechat" data-wechat="/images/wechat_code.jpg">
+                <img class="reward-select-item-wechat" src="/images/wechat.png" alt="微信">
+            </label>
+            
+            
+        </div>
+    </div>
+</div>
+
+
+        
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://andersjing.com/2018/11/25/2018-11-25-sequence-alignment/&title=《生物序列比对算法简述》 — Anders Jing's site&pic=/images/posts/6e7z_screenshot.png" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://andersjing.com/2018/11/25/2018-11-25-sequence-alignment/&title=《生物序列比对算法简述》 — Anders Jing's site&source=this is the site of AndersJing." data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://andersjing.com/2018/11/25/2018-11-25-sequence-alignment/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《生物序列比对算法简述》 — Anders Jing's site&url=http://andersjing.com/2018/11/25/2018-11-25-sequence-alignment/&via=http://andersjing.com" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://andersjing.com/2018/11/25/2018-11-25-sequence-alignment/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://andersjing.com/2018/11/25/2018-11-25-sequence-alignment/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/Needleman-Wunsch/" class="color2">Needleman-Wunsch</a>
+      
+    <a href="/tags/Smith-Waterman/" class="color5">Smith-Waterman</a>
+      
+    <a href="/tags/Blast/" class="color1">Blast</a>
+      
+    <a href="/tags/PSI-Blast/" class="color5">PSI-Blast</a>
+      
+    <a href="/tags/PSSM/" class="color5">PSSM</a>
+      
+    <a href="/tags/HMM/" class="color4">HMM</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Needleman-Wunsch算法——基于动态规划的序列全局比对"><span class="post-toc-text">Needleman-Wunsch算法——基于动态规划的序列全局比对</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#打分表"><span class="post-toc-text">打分表</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#计算步骤"><span class="post-toc-text">计算步骤</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#1-定义打分表"><span class="post-toc-text">1. 定义打分表</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#2-待比对序列的表示"><span class="post-toc-text">2. 待比对序列的表示</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#3-打分规则"><span class="post-toc-text">3. 打分规则</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#4-打分结果"><span class="post-toc-text">4. 打分结果</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#5-回溯获得比对结果"><span class="post-toc-text">5. 回溯获得比对结果</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Smith-Waterman-算法——基于动态规划的序列局部比对"><span class="post-toc-text">Smith-Waterman 算法——基于动态规划的序列局部比对</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#1-打分规则的修改"><span class="post-toc-text">1. 打分规则的修改</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#2-打分结果"><span class="post-toc-text">2. 打分结果</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#3-回溯结果"><span class="post-toc-text">3. 回溯结果</span></a></li></ol></li></ol><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#BLAST-算法——启发式近似算法"><span class="post-toc-text">BLAST 算法——启发式近似算法</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#1-序列预处理"><span class="post-toc-text">1. 序列预处理</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#2-构建待查询的K-元-词表"><span class="post-toc-text">2. 构建待查询的K-元 词表</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#3-比对打分"><span class="post-toc-text">3. 比对打分</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#4-Seed优化"><span class="post-toc-text">4. Seed优化</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#5-基于“种子”扩展（extend）"><span class="post-toc-text">5. 基于“种子”扩展（extend）</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#6-合并相邻的或距离较近的HSP"><span class="post-toc-text">6. 合并相邻的或距离较近的HSP</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#7-Smith-Waterman局部比对结果"><span class="post-toc-text">7. Smith-Waterman局部比对结果</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#PSI-BLAST-算法"><span class="post-toc-text">PSI-BLAST 算法</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#1-初始序列比对"><span class="post-toc-text">1. 初始序列比对</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#2-构建PSSM"><span class="post-toc-text">2. 构建PSSM</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#3-基于PSSM的再搜索"><span class="post-toc-text">3. 基于PSSM的再搜索</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#4-基于PSSM的迭代搜索"><span class="post-toc-text">4. 基于PSSM的迭代搜索</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#PSSM——position-specific-score-matrice"><span class="post-toc-text">PSSM——position-specific score matrice</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#1-计算MSA中每个位点不同氨基酸的出现次数"><span class="post-toc-text">1. 计算MSA中每个位点不同氨基酸的出现次数</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#2-基于氨基酸次数计算频率"><span class="post-toc-text">2. 基于氨基酸次数计算频率</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#3-计算对数似然"><span class="post-toc-text">3. 计算对数似然</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#说明"><span class="post-toc-text">说明</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#基于HMM的序列比对"><span class="post-toc-text">基于HMM的序列比对</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#1-初始的HMM"><span class="post-toc-text">1. 初始的HMM</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#2-增加对插入的处理"><span class="post-toc-text">2. 增加对插入的处理</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#3-增加对删除的处理"><span class="post-toc-text">3. 增加对删除的处理</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#4-完整的用于序列比对的HMM"><span class="post-toc-text">4. 完整的用于序列比对的HMM</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#5-HMM的表现形式"><span class="post-toc-text">5. HMM的表现形式</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#参考："><span class="post-toc-text">参考：</span></a></li>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/2018/11/27/2018-11-27-hexo-math/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          Hexo 支持数学公式
+        
+      </span>
+    </a>
+  
+  
+    <a href="/2018/07/28/linux-common-commands-tools/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">Linux 常用工具和命令总结</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2019 Anders Jing<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "http://andersjing.com",
+      animate: false,
+      isHome: false,
+      share: true,
+      reward: 1
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Bioinformatics/">Bioinformatics</a><a class="category-link" href="/categories/Linux/">Linux</a><a class="category-link" href="/categories/Machine-Learning/">Machine Learning</a><a class="category-link" href="/categories/Python/">Python</a><a class="category-link" href="/categories/QT/">QT</a><a class="category-link" href="/categories/deep-learning/">deep learning</a><a class="category-link" href="/categories/hexo/">hexo</a><a class="category-link" href="/categories/linux/">linux</a><a class="category-link" href="/categories/uncategorized/">uncategorized</a><a class="category-link" href="/categories/前端/">前端</a><a class="category-link" href="/categories/读书笔记/">读书笔记</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/Anaconda/" style="font-size: 10px;">Anaconda</a> <a href="/tags/Angular/" style="font-size: 10px;">Angular</a> <a href="/tags/Blast/" style="font-size: 10px;">Blast</a> <a href="/tags/CentOS/" style="font-size: 10px;">CentOS</a> <a href="/tags/GPU/" style="font-size: 10px;">GPU</a> <a href="/tags/HMM/" style="font-size: 10px;">HMM</a> <a href="/tags/Hexo/" style="font-size: 14px;">Hexo</a> <a href="/tags/Machine-Learning/" style="font-size: 10px;">Machine Learning</a> <a href="/tags/Needleman-Wunsch/" style="font-size: 10px;">Needleman-Wunsch</a> <a href="/tags/PSI-Blast/" style="font-size: 10px;">PSI-Blast</a> <a href="/tags/PSSM/" style="font-size: 10px;">PSSM</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/Rank/" style="font-size: 10px;">Rank</a> <a href="/tags/Smith-Waterman/" style="font-size: 10px;">Smith-Waterman</a> <a href="/tags/Theano/" style="font-size: 10px;">Theano</a> <a href="/tags/centos/" style="font-size: 16px;">centos</a> <a href="/tags/cuda/" style="font-size: 10px;">cuda</a> <a href="/tags/disk/" style="font-size: 10px;">disk</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/glibc/" style="font-size: 10px;">glibc</a> <a href="/tags/libstdc/" style="font-size: 10px;">libstdc</a> <a href="/tags/linux/" style="font-size: 18px;">linux</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/math/" style="font-size: 10px;">math</a> <a href="/tags/oh-my-zsh/" style="font-size: 10px;">oh my zsh</a> <a href="/tags/python/" style="font-size: 14px;">python</a> <a href="/tags/qml/" style="font-size: 10px;">qml</a> <a href="/tags/qt/" style="font-size: 10px;">qt</a> <a href="/tags/scipy/" style="font-size: 10px;">scipy</a> <a href="/tags/scrapy/" style="font-size: 10px;">scrapy</a> <a href="/tags/screen/" style="font-size: 10px;">screen</a> <a href="/tags/sklearn/" style="font-size: 10px;">sklearn</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/tar/" style="font-size: 10px;">tar</a> <a href="/tags/tensorflow/" style="font-size: 12px;">tensorflow</a> <a href="/tags/web开发/" style="font-size: 10px;">web开发</a> <a href="/tags/wget/" style="font-size: 10px;">wget</a> <a href="/tags/yum/" style="font-size: 10px;">yum</a> <a href="/tags/读书笔记/" style="font-size: 20px;">读书笔记</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/Anaconda/" style="font-size: 10px;">Anaconda</a> <a href="/tags/Angular/" style="font-size: 10px;">Angular</a> <a href="/tags/Blast/" style="font-size: 10px;">Blast</a> <a href="/tags/CentOS/" style="font-size: 10px;">CentOS</a> <a href="/tags/GPU/" style="font-size: 10px;">GPU</a> <a href="/tags/HMM/" style="font-size: 10px;">HMM</a> <a href="/tags/Hexo/" style="font-size: 14px;">Hexo</a> <a href="/tags/Machine-Learning/" style="font-size: 10px;">Machine Learning</a> <a href="/tags/Needleman-Wunsch/" style="font-size: 10px;">Needleman-Wunsch</a> <a href="/tags/PSI-Blast/" style="font-size: 10px;">PSI-Blast</a> <a href="/tags/PSSM/" style="font-size: 10px;">PSSM</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/Rank/" style="font-size: 10px;">Rank</a> <a href="/tags/Smith-Waterman/" style="font-size: 10px;">Smith-Waterman</a> <a href="/tags/Theano/" style="font-size: 10px;">Theano</a> <a href="/tags/centos/" style="font-size: 16px;">centos</a> <a href="/tags/cuda/" style="font-size: 10px;">cuda</a> <a href="/tags/disk/" style="font-size: 10px;">disk</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/glibc/" style="font-size: 10px;">glibc</a> <a href="/tags/libstdc/" style="font-size: 10px;">libstdc</a> <a href="/tags/linux/" style="font-size: 18px;">linux</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/math/" style="font-size: 10px;">math</a> <a href="/tags/oh-my-zsh/" style="font-size: 10px;">oh my zsh</a> <a href="/tags/python/" style="font-size: 14px;">python</a> <a href="/tags/qml/" style="font-size: 10px;">qml</a> <a href="/tags/qt/" style="font-size: 10px;">qt</a> <a href="/tags/scipy/" style="font-size: 10px;">scipy</a> <a href="/tags/scrapy/" style="font-size: 10px;">scrapy</a> <a href="/tags/screen/" style="font-size: 10px;">screen</a> <a href="/tags/sklearn/" style="font-size: 10px;">sklearn</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/tar/" style="font-size: 10px;">tar</a> <a href="/tags/tensorflow/" style="font-size: 12px;">tensorflow</a> <a href="/tags/web开发/" style="font-size: 10px;">web开发</a> <a href="/tags/wget/" style="font-size: 10px;">wget</a> <a href="/tags/yum/" style="font-size: 10px;">yum</a> <a href="/tags/读书笔记/" style="font-size: 20px;">读书笔记</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+
+
+
+  <script src="/js/pop-img.js"></script>
+  <script>
+     $(".article-entry p img").popImg();
+  </script>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>
