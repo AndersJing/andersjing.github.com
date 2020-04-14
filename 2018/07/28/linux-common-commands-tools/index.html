@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="Anders Jing&#39;s site">
 <meta property="og:description" content="前言Linux日常操作中经常会用到一些工具和命令，这里对一些进行总结。 文件和文件夹大小以/home/目录为例：1du -h /home/* --max-depth=0 —max-depth参数可以指定查看的深度，0为当前目录，1为当前目录及下一级目录，剩下依次类推。 统计目录下文件数目利用 ls1ls | wc -l 在这个基础上, 可以衍生出: 统计文件或文件夹文件: ls -l | grep">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-04-14T21:01:43.894Z">
+<meta property="og:updated_time" content="2020-04-14T21:04:28.155Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux 常用工具和命令总结">
 <meta name="twitter:description" content="前言Linux日常操作中经常会用到一些工具和命令，这里对一些进行总结。 文件和文件夹大小以/home/目录为例：1du -h /home/* --max-depth=0 —max-depth参数可以指定查看的深度，0为当前目录，1为当前目录及下一级目录，剩下依次类推。 统计目录下文件数目利用 ls1ls | wc -l 在这个基础上, 可以衍生出: 统计文件或文件夹文件: ls -l | grep">
@@ -162,6 +162,7 @@
 <h3 id="文件同步与备份"><a href="#文件同步与备份" class="headerlink" title="文件同步与备份"></a>文件同步与备份</h3><p>文件同步和备份是经常用到的一个功能，尤其是本地和服务器数据的交互，以及本地文件的备份，简单的需求用scp命令也能实现，但是复杂的就需要<code>rsync</code>了。</p>
 <h4 id="同步两个文件夹的文件及子目录下的文件"><a href="#同步两个文件夹的文件及子目录下的文件" class="headerlink" title="同步两个文件夹的文件及子目录下的文件"></a>同步两个文件夹的文件及子目录下的文件</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rsync -zarvh source_dir/ object_dir/</span><br></pre></td></tr></table></figure>
 <p>此处，source_dir可以是本地文件夹也可以是远程文件夹，如 <code>user@123.456.78.9:~/</code>，所以利用该命令可以方便地实现文件同步和备份，并且每次只同步有改动的文件。</p>
+<p>另外需要注意的是，如果文件夹末尾不加<code>/</code>，则会将当前文件夹整体同步，即会出现<code>object_dir/source_dir/</code>这样的结果。</p>
 <p>具体的参数可以参考：<a href="https://linux.die.net/man/1/rsync" target="_blank" rel="noopener">https://linux.die.net/man/1/rsync</a></p>
 <h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ol>
 <li>Linux下统计文件或文件夹数量: <a href="http://gohom.win/2016/01/11/countfilesBash/" target="_blank" rel="noopener">http://gohom.win/2016/01/11/countfilesBash/</a></li>
@@ -170,7 +171,7 @@
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2020年04月14日 16:01</p>
+        <p>最后更新： 2020年04月14日 16:04</p>
         <p>原始链接： <a class="post-url" href="/2018/07/28/linux-common-commands-tools/" title="Linux 常用工具和命令总结">http://andersjing.com/2018/07/28/linux-common-commands-tools/</a></p>
         <footer>
             <a href="http://andersjing.com">
