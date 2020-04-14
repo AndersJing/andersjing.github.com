@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="Anders Jing&#39;s site">
 <meta property="og:description" content="前言Linux日常操作中经常会用到一些工具和命令，这里对一些进行总结。 文件和文件夹大小以/home/目录为例：1du -h /home/* --max-depth=0 —max-depth参数可以指定查看的深度，0为当前目录，1为当前目录及下一级目录，剩下依次类推。 统计目录下文件数目利用 ls1ls | wc -l 在这个基础上, 可以衍生出: 统计文件或文件夹文件: ls -l | grep">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-04-20T02:37:02.908Z">
+<meta property="og:updated_time" content="2020-04-14T21:01:43.894Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux 常用工具和命令总结">
 <meta name="twitter:description" content="前言Linux日常操作中经常会用到一些工具和命令，这里对一些进行总结。 文件和文件夹大小以/home/目录为例：1du -h /home/* --max-depth=0 —max-depth参数可以指定查看的深度，0为当前目录，1为当前目录及下一级目录，剩下依次类推。 统计目录下文件数目利用 ls1ls | wc -l 在这个基础上, 可以衍生出: 统计文件或文件夹文件: ls -l | grep">
@@ -159,6 +159,10 @@
 <h4 id="退出当前会话而保持其运行"><a href="#退出当前会话而保持其运行" class="headerlink" title="退出当前会话而保持其运行"></a>退出当前会话而保持其运行</h4><p>在对应会话中，同时按下<code>control+a+d</code>三个键。</p>
 <h4 id="重新连接到后台运行的会话"><a href="#重新连接到后台运行的会话" class="headerlink" title="重新连接到后台运行的会话"></a>重新连接到后台运行的会话</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">screen -r newscreen</span><br></pre></td></tr></table></figure>
 <h4 id="关闭当前会话"><a href="#关闭当前会话" class="headerlink" title="关闭当前会话"></a>关闭当前会话</h4><p>同时按下<code>control+d</code>两个键。</p>
+<h3 id="文件同步与备份"><a href="#文件同步与备份" class="headerlink" title="文件同步与备份"></a>文件同步与备份</h3><p>文件同步和备份是经常用到的一个功能，尤其是本地和服务器数据的交互，以及本地文件的备份，简单的需求用scp命令也能实现，但是复杂的就需要<code>rsync</code>了。</p>
+<h4 id="同步两个文件夹的文件及子目录下的文件"><a href="#同步两个文件夹的文件及子目录下的文件" class="headerlink" title="同步两个文件夹的文件及子目录下的文件"></a>同步两个文件夹的文件及子目录下的文件</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rsync -zarvh source_dir/ object_dir/</span><br></pre></td></tr></table></figure>
+<p>此处，source_dir可以是本地文件夹也可以是远程文件夹，如 <code>user@123.456.78.9:~/</code>，所以利用该命令可以方便地实现文件同步和备份，并且每次只同步有改动的文件。</p>
+<p>具体的参数可以参考：<a href="https://linux.die.net/man/1/rsync" target="_blank" rel="noopener">https://linux.die.net/man/1/rsync</a></p>
 <h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ol>
 <li>Linux下统计文件或文件夹数量: <a href="http://gohom.win/2016/01/11/countfilesBash/" target="_blank" rel="noopener">http://gohom.win/2016/01/11/countfilesBash/</a></li>
 <li>linux 技巧：使用 screen 管理你的远程会话: <a href="https://www.ibm.com/developerworks/cn/linux/l-cn-screen/index.html" target="_blank" rel="noopener">https://www.ibm.com/developerworks/cn/linux/l-cn-screen/index.html</a></li>
@@ -166,7 +170,7 @@
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2019年04月19日 21:37</p>
+        <p>最后更新： 2020年04月14日 16:01</p>
         <p>原始链接： <a class="post-url" href="/2018/07/28/linux-common-commands-tools/" title="Linux 常用工具和命令总结">http://andersjing.com/2018/07/28/linux-common-commands-tools/</a></p>
         <footer>
             <a href="http://andersjing.com">
@@ -280,7 +284,7 @@
 
     <aside class="post-toc-pos post-toc-top" id="post-toc">
         <nav class="post-toc-wrap">
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#前言"><span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#文件和文件夹大小"><span class="post-toc-text">文件和文件夹大小</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#统计目录下文件数目"><span class="post-toc-text">统计目录下文件数目</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#利用-ls"><span class="post-toc-text">利用 ls</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#利用-find"><span class="post-toc-text">利用 find</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Screen"><span class="post-toc-text">Screen</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#安装-screen"><span class="post-toc-text">安装 screen</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#查看运行中的会话"><span class="post-toc-text">查看运行中的会话</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#创建新的会话"><span class="post-toc-text">创建新的会话</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#退出当前会话而保持其运行"><span class="post-toc-text">退出当前会话而保持其运行</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#重新连接到后台运行的会话"><span class="post-toc-text">重新连接到后台运行的会话</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#关闭当前会话"><span class="post-toc-text">关闭当前会话</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#参考"><span class="post-toc-text">参考</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#前言"><span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#文件和文件夹大小"><span class="post-toc-text">文件和文件夹大小</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#统计目录下文件数目"><span class="post-toc-text">统计目录下文件数目</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#利用-ls"><span class="post-toc-text">利用 ls</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#利用-find"><span class="post-toc-text">利用 find</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Screen"><span class="post-toc-text">Screen</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#安装-screen"><span class="post-toc-text">安装 screen</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#查看运行中的会话"><span class="post-toc-text">查看运行中的会话</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#创建新的会话"><span class="post-toc-text">创建新的会话</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#退出当前会话而保持其运行"><span class="post-toc-text">退出当前会话而保持其运行</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#重新连接到后台运行的会话"><span class="post-toc-text">重新连接到后台运行的会话</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#关闭当前会话"><span class="post-toc-text">关闭当前会话</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#文件同步与备份"><span class="post-toc-text">文件同步与备份</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#同步两个文件夹的文件及子目录下的文件"><span class="post-toc-text">同步两个文件夹的文件及子目录下的文件</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#参考"><span class="post-toc-text">参考</span></a></li></ol>
         </nav>
     </aside>
     
@@ -328,7 +332,7 @@
       <p>
         Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
         Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
-      &copy; 2019 Anders Jing<br>
+      &copy; 2020 Anders Jing<br>
       </p>
     </div>
   </div>
